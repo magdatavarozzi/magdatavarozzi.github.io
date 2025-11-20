@@ -1,0 +1,256 @@
+:root{
+  --violet: #7a5cf0;
+  --light-blue: #a8d8ff;
+  --bg: #fafafa;
+  --text: #333;
+  --income: #1fa31f;
+  --expense: #d42828;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Poppins',system-ui,Arial;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* LANG TOGGLE */
+.lang-toggle{
+  position:fixed;
+  top:12px;
+  right:14px;
+  z-index:1000;
+  display:flex;
+  gap:6px;
+}
+.lang-toggle button{
+  padding:6px 10px;
+  border-radius:6px;
+  border:none;
+  background:white;
+  color:var(--violet);
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+.lang-toggle button.active{
+  background:var(--violet);
+  color:white;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--violet),var(--light-blue));
+  color:white;
+  text-align:center;
+  padding:28px 18px;
+}
+header h1{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:1.6rem;
+  font-weight:700;
+}
+.logo{
+  width:48px;
+  height:48px;
+  filter:brightness(1.25);
+}
+
+/* NAV */
+nav{
+  background:white;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+nav ul{
+  display:flex;
+  justify-content:center;
+  list-style:none;
+}
+nav a{
+  display:block;
+  padding:12px 18px;
+  text-decoration:none;
+  color:var(--violet);
+  font-weight:600;
+}
+
+/* HERO */
+.hero{
+  padding:64px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,var(--light-blue),var(--violet));
+  color:white;
+}
+.hero h2{
+  font-size:1.8rem;
+  margin-bottom:10px;
+}
+
+/* SECTIONS */
+main section{
+  max-width:1000px;
+  margin:0 auto;
+  padding:36px 20px;
+}
+h2{
+  color:var(--violet);
+  text-align:center;
+  margin-bottom:18px;
+}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
+  text-align:center;
+}
+.service{
+  background:white;
+  padding:2rem;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.service:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+.service h3{
+  color:var(--violet);
+  margin-bottom:0.8rem;
+}
+
+/* TRACKER APP */
+.tracker-app{
+  margin-top:12px;
+  padding:14px;
+  background:#eef3ff;
+  border-radius:10px;
+}
+.tracker-display{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin-bottom:12px;
+}
+#balance{
+  font-size:1.2rem;
+}
+
+/* FORM */
+#trackerForm{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  align-items:center;
+}
+#trackerForm input,#trackerForm select{
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #d7dbe8;
+  font-size:0.95rem;
+}
+#trackerForm button{
+  padding:8px 12px;
+  border-radius:6px;
+  border:none;
+  background:var(--violet);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* LIST */
+#transactions{
+  list-style:none;
+  margin-top:10px;
+  padding:0;
+}
+#transactions li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 10px;
+  background:white;
+  border-radius:6px;
+  margin-top:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* FULL-LINE COLOR */
+li.income-item{ color:var(--income); }
+li.expense-item{ color:var(--expense); }
+
+.tx-left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.tx-delete{
+  background:transparent;
+  border:none;
+  color:#999;
+  font-size:18px;
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:4px;
+}
+
+/* CONTACT */
+.contact{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.contact form{
+  width:100%;
+  max-width:420px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:14px;
+}
+.contact input,.contact textarea{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #d7dbe8;
+  font-size:0.95rem;
+}
+.contact button{
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background:var(--violet);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:18px 10px;
+  background:white;
+  color:#666;
+  margin-top:20px;
+  font-size:0.95rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  header h1{ font-size:1.2rem; }
+  .hero h2{ font-size:1.2rem; }
+  nav ul{ flex-wrap:wrap; }
+  #trackerForm{ flex-direction:column; align-items:stretch; }
+}

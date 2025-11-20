@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MT Web Designs</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+    <button id="enBtn" class="active">EN</button>
+    <button id="frBtn">FR</button>
+</div>
+
+<header>
+    <h1>
+        <img src="logo.png" class="logo" alt="Logo" />
+        MT Web Designs
+    </h1>
+    <p data-en="Your Digital Presence, Powered by AI."
+       data-fr="Votre présence numérique, optimisée par l'IA.">
+       Your Digital Presence, Powered by AI.
+    </p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#home" data-en="Home" data-fr="Accueil">Home</a></li>
+        <li><a href="#services" data-en="Services" data-fr="Services">Services</a></li>
+        <li><a href="#portfolio" data-en="Portfolio" data-fr="Portfolio">Portfolio</a></li>
+        <li><a href="#contact" data-en="Contact" data-fr="Contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="home">
+    <h2 data-en="Make Technology Work For You" data-fr="Faites fonctionner la technologie pour vous">
+        Make Technology Work For You
+    </h2>
+    <p data-en="Creating modern, intelligent websites and digital tools that simplify, connect, and inspire."
+       data-fr="Créer des sites modernes et intelligents qui simplifient, connectent et inspirent.">
+       Creating modern, intelligent websites and digital tools that simplify, connect, and inspire.
+    </p>
+</section>
+
+<main>
+
+<section id="services">
+    <h2 data-en="Services" data-fr="Services">Services</h2>
+
+    <div class="services">
+
+        <div class="service">
+            <h3 data-en="Web Design & Development" data-fr="Conception et développement Web">
+                Web Design & Development
+            </h3>
+            <p data-en="Modern, responsive websites built with HTML, CSS & JavaScript — fast, clean, and effective."
+               data-fr="Sites modernes et responsives en HTML, CSS & JavaScript — rapides, propres et efficaces.">
+               Modern, responsive websites built with HTML, CSS & JavaScript — fast, clean, and effective.
+            </p>
+        </div>
+
+        <div class="service">
+            <h3 data-en="AI & Automation" data-fr="IA et automatisation">AI & Automation</h3>
+            <p data-en="Light, smart automations that improve workflows and reduce repetitive tasks."
+               data-fr="Automatisations légères et intelligentes qui améliorent les flux de travail.">
+               Light, smart automations that improve workflows and reduce repetitive tasks.
+            </p>
+        </div>
+
+        <div class="service">
+            <h3 data-en="Digital Consulting" data-fr="Consultation numérique">Digital Consulting</h3>
+            <p data-en="Guidance to help integrate digital tools and optimize your online presence efficiently."
+               data-fr="Conseils pour intégrer des outils numériques et optimiser votre présence en ligne.">
+               Guidance to help integrate digital tools and optimize your online presence efficiently.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="portfolio">
+    <h2 data-en="Portfolio" data-fr="Portfolio">Portfolio</h2>
+
+    <p data-en="Sample projects and digital tools developed for innovation and simplicity."
+       data-fr="Projets et outils numériques développés pour la simplicité et l'innovation.">
+       Sample projects and digital tools developed for innovation and simplicity.
+    </p>
+
+    <h3 data-en="Finance Tracker Lite - Demo" data-fr="Finance Tracker Lite - Démo">
+        Finance Tracker Lite - Demo
+    </h3>
+
+    <p data-en="Balance Income & Expenses Live" data-fr="Équilibrer Revenus & Dépenses en Direct">
+        Balance Income & Expenses Live
+    </p>
+
+    <div class="tracker-app">
+        <div class="tracker-display">
+            <strong data-en="Current Balance" data-fr="Solde actuel">Current Balance</strong>
+            <div id="balance">$0.00</div>
+        </div>
+
+        <form id="trackerForm">
+            <input id="desc" name="desc" autocomplete="on"
+                   data-en-placeholder="Description" data-fr-placeholder="Description"
+                   placeholder="Description" required />
+
+            <input id="amount" name="amount" type="number" step="0.01"
+                   data-en-placeholder="Amount" data-fr-placeholder="Montant"
+                   placeholder="Amount" required />
+
+            <select id="type" name="type">
+                <option value="income" data-en="Income" data-fr="Revenu">Income</option>
+                <option value="expense" data-en="Expense" data-fr="Dépense">Expense</option>
+            </select>
+
+            <button type="submit" data-en="Add" data-fr="Ajouter">Add</button>
+        </form>
+
+        <ul id="transactions" aria-live="polite"></ul>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <h2 data-en="Get in Touch" data-fr="Contactez-moi">Get in Touch</h2>
+
+    <p data-en="Have a project in mind or want to explore new ideas? Let’s create something simple and impactful."
+       data-fr="Un projet en tête? Créons quelque chose de simple et impactant.">
+       Have a project in mind or want to explore new ideas? Let’s create something simple and impactful.
+    </p>
+
+    <form id="contactForm">
+        <input name="name" type="text" data-en-placeholder="Name" data-fr-placeholder="Nom" placeholder="Name" />
+        <input name="email" type="email" data-en-placeholder="Email" data-fr-placeholder="Courriel" placeholder="Email" />
+        <textarea name="message" rows="4" data-en-placeholder="Message" data-fr-placeholder="Message" placeholder="Message"></textarea>
+        <button type="submit" data-en="Send Message" data-fr="Envoyer">Send Message</button>
+    </form>
+</section>
+
+</main>
+
+<footer>
+    © 2025 MT Web Designs | Montréal, QC
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+
