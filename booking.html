@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Booking demo | MT Web Designs</title>
+<meta name="description" content="Try a bilingual online booking system for restaurants, gyms and salons, built by MT Web Designs in Montréal." />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --violet:#7a5cf0; --violet-dark:#5b3fd6; --light-blue:#a8d8ff;
+  --bg:#fafafa; --text:#333; --muted:#6b6880; --line:#e3e1ee; --soft:#f1eefe;
+  --err:#d42828; color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+body{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+
+.top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:white;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.brand{display:flex;align-items:center;gap:8px;color:var(--violet);font-weight:700;text-decoration:none}
+.brand img{width:28px;height:28px}
+.lang{display:flex;gap:6px}
+.lang button{padding:6px 10px;border-radius:6px;border:none;background:white;color:var(--violet);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.lang button[aria-pressed="true"]{background:var(--violet);color:white}
+
+.intro{background:linear-gradient(135deg,var(--violet),var(--light-blue));color:white;text-shadow:0 1px 3px rgba(0,0,0,.25);
+  padding:36px 20px 60px;text-align:center}
+.intro h1{font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.2;margin-bottom:8px}
+.intro p{max-width:34em;margin:0 auto}
+.demo-note{display:inline-block;margin-top:14px;font-size:.85rem;background:rgba(255,255,255,.22);padding:4px 12px;border-radius:999px}
+
+.wrap{max-width:720px;margin:-34px auto 0;padding:0 14px 32px}
+.switch{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:white;border-radius:12px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.switch button{border:none;background:transparent;padding:10px 4px;border-radius:9px;font-weight:600;color:var(--muted)}
+.switch button[aria-pressed="true"]{background:var(--violet);color:white}
+
+.card{background:white;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.06);margin-top:14px;overflow:hidden}
+.biz-head{padding:18px 20px;border-bottom:1px solid var(--line)}
+.biz-head h2{font-size:1.25rem;color:var(--violet);line-height:1.3}
+.biz-head p{color:var(--muted);font-size:.92rem}
+.step{padding:18px 20px;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step h3{display:flex;align-items:center;gap:10px;font-size:1rem;margin-bottom:12px}
+.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--violet);font-size:.85rem;font-weight:700;flex:none}
+.step.done .num{background:var(--violet);color:white}
+.hint{color:var(--muted);font-size:.85rem;margin-top:10px}
+
+.stepper{display:flex;align-items:center;gap:14px}
+.stepper button{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:white;font-size:1.3rem;line-height:1;color:var(--violet)}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.stepper output{min-width:7.5em;text-align:center;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{padding:8px 18px;border-radius:999px;border:1.5px solid var(--line);background:white;font-weight:500}
+.pill[aria-pressed="true"]{border-color:var(--violet);background:var(--violet);color:white}
+
+.opt-list{display:grid;gap:8px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:white;font-weight:500}
+.opt small{color:var(--muted);white-space:nowrap;font-weight:400}
+.opt[aria-pressed="true"]{border-color:var(--violet);background:var(--soft)}
+
+.days{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;margin:0 -20px;padding:2px 20px 8px}
+.day{flex:0 0 70px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:10px;border:1.5px solid var(--line);background:white;line-height:1.25}
+.day .dow,.day .mon{font-size:.76rem;color:var(--muted)}
+.day .dnum{font-size:1.25rem;font-weight:700}
+.day[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
+.day[aria-pressed="true"] .dow,.day[aria-pressed="true"] .mon{color:rgba(255,255,255,.9)}
+.day:disabled{background:#f4f4f7;color:#a9a7b5;cursor:not-allowed}
+.day:disabled .dow,.day:disabled .mon{color:#a9a7b5}
+
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
+.time{display:flex;flex-direction:column;align-items:center;padding:10px 6px;border-radius:10px;border:1.5px solid var(--line);background:white;font-weight:600;line-height:1.3}
+.time small{font-weight:400;font-size:.74rem;color:var(--muted)}
+.time[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
+.time[aria-pressed="true"] small{color:rgba(255,255,255,.9)}
+.time:disabled{background:#f4f4f7;color:#a9a7b5;cursor:not-allowed}
+.time:disabled small{color:#a9a7b5}
+
+.summary{background:var(--soft);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.92rem}
+.summary strong{color:var(--violet)}
+.field{display:grid;gap:4px;margin-bottom:12px}
+.field label{font-size:.9rem;font-weight:500}
+.field input,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:white;font-size:1rem}
+.field input[aria-invalid="true"]{border-color:var(--err)}
+.err{color:var(--err);font-size:.82rem}
+.primary{padding:13px 20px;border-radius:10px;border:none;background:var(--violet);color:white;font-weight:700;font-size:1rem}
+.primary:hover{background:var(--violet-dark)}
+.full{width:100%}
+.secondary{padding:12px 18px;border-radius:10px;border:1.5px solid var(--violet);background:white;color:var(--violet);font-weight:600}
+
+.confirm{padding:28px 20px;text-align:center}
+.confirm:focus{outline:none}
+.confirm svg{width:56px;height:56px}
+.confirm h3{font-size:1.3rem;margin:10px 0 6px}
+.code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--soft);color:var(--violet);padding:6px 14px;border-radius:8px;margin-top:4px}
+.details{list-style:none;text-align:left;max-width:380px;margin:18px auto 8px;display:grid;gap:8px}
+.details li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.details li span:first-child{color:var(--muted)}
+.details li span:last-child{text-align:right;font-weight:500}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+
+.mine{margin-top:26px}
+.mine h2,.cta h2{font-size:1.1rem}
+.mine h2:focus{outline:none}
+.bk{display:flex;justify-content:space-between;align-items:center;gap:10px;background:white;border-radius:10px;padding:12px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-top:8px}
+.bk span{display:block;color:var(--muted);font-size:.88rem}
+.bk-actions{display:flex;gap:2px;flex:none}
+.link{background:none;border:none;font-weight:600;padding:6px 8px;border-radius:6px;color:var(--violet)}
+.link.danger{color:var(--err)}
+
+.cta{margin-top:28px;background:linear-gradient(135deg,var(--violet),#4f8fd6);color:white;border-radius:14px;padding:26px 20px;text-align:center}
+.cta p{margin:6px auto 16px;max-width:30em}
+.cta a{display:inline-block;background:white;color:var(--violet);font-weight:700;padding:12px 26px;border-radius:999px;text-decoration:none}
+.cta a:focus-visible{outline-color:white}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:8px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+footer a{color:var(--violet);text-decoration:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(() => {
+const STORE = "mtwd-booking-demo-v1";
+
+const T = {
+  en: {
+    title: "Online booking demo",
+    intro: "One booking system, set up for any small business. Try it as a restaurant, a gym or a salon.",
+    demo: "Demo with fictional businesses. No real booking is made.",
+    bizLabel: "Business type", resto: "Restaurant", gym: "Gym", salon: "Salon",
+    s1resto: "Your table", s1gym: "Choose a class", s1salon: "Choose a service",
+    party: "Party size", people: n => n === 1 ? "1 person" : `${n} people`,
+    fewer: "Fewer people", more: "More people",
+    bigGroup: "For 9 or more, please call the restaurant.",
+    seating: "Seating", indoor: "Indoor", terrace: "Terrace",
+    tableFor: n => `Table for ${n}`,
+    s2: "Pick a day", today: "Today", closed: "Closed", noClass: "No class",
+    s3: "Pick a time", noSlots: "No times left on this day. Try another day.",
+    spots: n => n === 1 ? "1 spot left" : `${n} spots left`,
+    full: "Full", taken: "Taken", yours: "Booked",
+    s4: "Your details", name: "Name", email: "Email",
+    phone: "Phone (optional)", notes: "Notes (optional)",
+    notesPh: { resto: "Allergies, special occasion…", gym: "Injuries, or is it your first class?", salon: "Anything we should know?" },
+    confirm: "Confirm booking",
+    errName: "Enter your name.", errEmail: "Enter a valid email address.",
+    done: "Booking confirmed", code: "Booking code",
+    where: "Where", what: "What", when: "When",
+    doneSub: e => `In a real setup, a confirmation email would go to ${e}.`,
+    addCal: "Add to calendar", another: "Book another",
+    mine: "Your bookings", none: "Bookings you make will appear here.",
+    cancel: "Cancel", cancelled: "Booking cancelled.",
+    ctaT: "Want online booking for your business?",
+    ctaP: "MT Web Designs sets this up for restaurants, gyms, salons and other small businesses, in French and English.",
+    ctaB: "Get a free quote"
+  },
+  fr: {
+    title: "Démo de réservation en ligne",
+    intro: "Un seul système de réservation, adapté à toute petite entreprise. Essayez-le en mode restaurant, gym ou salon.",
+    demo: "Démo avec des entreprises fictives. Aucune réservation réelle n’est faite.",
+    bizLabel: "Type d’entreprise", resto: "Restaurant", gym: "Gym", salon: "Salon",
+    s1resto: "Votre table", s1gym: "Choisissez un cours", s1salon: "Choisissez un service",
+    party: "Nombre de personnes", people: n => n === 1 ? "1 personne" : `${n} personnes`,
+    fewer: "Moins de personnes", more: "Plus de personnes",
+    bigGroup: "Pour 9 personnes ou plus, veuillez appeler le restaurant.",
+    seating: "Place", indoor: "Intérieur", terrace: "Terrasse",
+    tableFor: n => `Table pour ${n}`,
+    s2: "Choisissez une date", today: "Auj.", closed: "Fermé", noClass: "Aucun cours",
+    s3: "Choisissez une heure", noSlots: "Plus de disponibilités ce jour-là. Essayez une autre date.",
+    spots: n => n === 1 ? "1 place restante" : `${n} places restantes`,
+    full: "Complet", taken: "Pris", yours: "Réservé",
+    s4: "Vos coordonnées", name: "Nom", email: "Courriel",
+    phone: "Téléphone (facultatif)", notes: "Remarques (facultatif)",
+    notesPh: { resto: "Allergies, occasion spéciale…", gym: "Blessures, ou est-ce votre premier cours?", salon: "Quelque chose à nous dire?" },
+    confirm: "Confirmer la réservation",
+    errName: "Entrez votre nom.", errEmail: "Entrez une adresse courriel valide.",
+    done: "Réservation confirmée", code: "Code de réservation",
+    where: "Où", what: "Quoi", when: "Quand",
+    doneSub: e => `Dans une vraie installation, un courriel de confirmation serait envoyé à ${e}.`,
+    addCal: "Ajouter au calendrier", another: "Nouvelle réservation",
+    mine: "Vos réservations", none: "Vos réservations apparaîtront ici.",
+    cancel: "Annuler", cancelled: "Réservation annulée.",
+    ctaT: "Vous voulez la réservation en ligne pour votre entreprise?",
+    ctaP: "MT Web Designs l’installe pour les restaurants, gyms, salons et autres petites entreprises, en français et en anglais.",
+    ctaB: "Obtenir un devis gratuit"
+  }
+};
+
+/* Days: 0 = Sunday ... 6 = Saturday */
+const BIZ = {
+  resto: {
+    kind: "resto", name: "Bistro Saint-Laurent", area: "Plateau-Mont-Royal",
+    tag: { en: "Seasonal Québec cooking", fr: "Cuisine québécoise de saison" },
+    closed: [1], open: "17:00", last: "21:30", dur: 90
+  },
+  gym: {
+    kind: "gym", name: "Studio Mile End", area: "Mile End",
+    tag: { en: "Small-group fitness classes", fr: "Cours en petits groupes" },
+    closed: [],
+    classes: [
+      { id: "yoga", name: { en: "Yoga flow", fr: "Yoga flow" }, dur: 60, cap: 16,
+        times: { 1: ["07:00", "18:00"], 3: ["07:00", "18:00"], 5: ["07:00"], 6: ["10:00"], 0: ["10:00"] } },
+      { id: "hiit", name: { en: "HIIT", fr: "HIIT" }, dur: 45, cap: 12,
+        times: { 1: ["12:00", "17:30"], 2: ["06:30", "17:30"], 4: ["06:30", "17:30"], 6: ["09:00"] } },
+      { id: "spin", name: { en: "Spin", fr: "Vélo stationnaire" }, dur: 45, cap: 20,
+        times: { 2: ["12:00", "18:30"], 3: ["06:30"], 4: ["12:00", "18:30"], 5: ["17:30"], 6: ["11:00"] } },
+      { id: "pilates", name: { en: "Mat Pilates", fr: "Pilates au sol" }, dur: 50, cap: 10,
+        times: { 1: ["09:30"], 3: ["09:30", "19:00"], 5: ["09:30"], 0: ["11:30"] } }
+    ]
+  },
+  salon: {
+    kind: "salon", name: "Salon Lumière", area: "Villeray",
+    tag: { en: "Hair and colour", fr: "Coiffure et coloration" },
+    closed: [0, 1],
+    hours: { def: ["09:00", "18:00"], 4: ["09:00", "20:00"], 5: ["09:00", "20:00"], 6: ["09:00", "16:00"] },
+    services: [
+      { id: "cut", name: { en: "Haircut", fr: "Coupe" }, dur: 45, price: 55 },
+      { id: "color", name: { en: "Cut and colour", fr: "Coupe et coloration" }, dur: 120, price: 140 },
+      { id: "blow", name: { en: "Blow-dry", fr: "Brushing" }, dur: 30, price: 40 },
+      { id: "beard", name: { en: "Beard trim", fr: "Taille de barbe" }, dur: 20, price: 25 }
+    ]
+  }
+};
+
+const state = {
+  lang: "en", biz: "resto",
+  party: 2, seating: "indoor", classId: null, serviceId: null,
+  date: null, time: null,
+  form: { name: "", email: "", phone: "", notes: "" },
+  errors: {}, confirmed: null, bookings: [], note: ""
+};
+
+/* ---------- helpers ---------- */
+const t = k => T[state.lang][k];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pad = n => String(n).padStart(2, "0");
+const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const dateOf = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+const toMin = s => { const [h, m] = s.split(":").map(Number); return h * 60 + m; };
+const fromMin = n => `${pad(Math.floor(n / 60))}:${pad(n % 60)}`;
+const locale = () => state.lang === "fr" ? "fr-CA" : "en-CA";
+const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function hash(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function fmtTime(s) {
+  const [h, m] = s.split(":").map(Number);
+  if (state.lang === "fr") return m ? `${h} h ${pad(m)}` : `${h} h`;
+  return `${(h % 12) || 12}:${pad(m)} ${h < 12 ? "AM" : "PM"}`;
+}
+function fmtDate(k, long) {
+  const opts = long ? { weekday: "long", day: "numeric", month: "long" } : { weekday: "short", day: "numeric", month: "short" };
+  return new Intl.DateTimeFormat(locale(), opts).format(dateOf(k));
+}
+const price = n => state.lang === "fr" ? `${n} $` : `$${n}`;
+const todayKey = () => keyOf(new Date());
+
+function whatLabel(o) {
+  const b = BIZ[o.biz];
+  if (b.kind === "resto") return `${t("tableFor")(o.party)}, ${t(o.seating).toLowerCase()}`;
+  if (b.kind === "gym") { const c = b.classes.find(x => x.id === o.classId); return `${c.name[state.lang]} (${c.dur} min)`; }
+  const s = b.services.find(x => x.id === o.serviceId); return `${s.name[state.lang]} (${s.dur} min)`;
+}
+function durOf(o) {
+  const b = BIZ[o.biz];
+  if (b.kind === "resto") return b.dur;
+  if (b.kind === "gym") return b.classes.find(x => x.id === o.classId).dur;
+  return b.services.find(x => x.id === o.serviceId).dur;
+}
+function choiceMade() {
+  const k = BIZ[state.biz].kind;
+  return k === "resto" || (k === "gym" && state.classId) || (k === "salon" && state.serviceId);
+}
+
+/* ---------- storage ---------- */
+function load() {
+  const fallback = (navigator.language || "").toLowerCase().startsWith("fr") ? "fr" : "en";
+  try {
+    const d = JSON.parse(localStorage.getItem(STORE) || "{}");
+    const shared = localStorage.getItem("mtwd-lang");
+    state.lang = shared === "en" || shared === "fr" ? shared : fallback;
+    if (Array.isArray(d.bookings)) state.bookings = d.bookings.filter(b => b && BIZ[b.biz] && b.date >= todayKey());
+  } catch (e) { state.lang = fallback; }
+}
+function save() {
+  try {
+    localStorage.setItem(STORE, JSON.stringify({ bookings: state.bookings }));
+    localStorage.setItem("mtwd-lang", state.lang);
+  } catch (e) {}
+}
+
+/* ---------- availability ---------- */
+function dayStatus(d) {
+  const b = BIZ[state.biz], dow = d.getDay();
+  if (b.closed.includes(dow)) return { ok: false, label: t("closed") };
+  if (b.kind === "gym" && state.classId) {
+    const c = b.classes.find(x => x.id === state.classId);
+    if (!c.times[dow]) return { ok: false, label: t("noClass") };
+  }
+  return { ok: true };
+}
+function slots() {
+  const b = BIZ[state.biz], dow = dateOf(state.date).getDay();
+  const cutoff = Date.now() + 30 * 60000;
+  const future = tm => { const x = dateOf(state.date), m = toMin(tm); x.setHours(Math.floor(m / 60), m % 60); return x.getTime() > cutoff; };
+  const mine = tm => state.bookings.some(k => k.biz === state.biz && k.date === state.date && k.time === tm);
+  let list = [];
+  if (b.kind === "resto") {
+    const rate = 18 + state.party * 5 + (dow === 5 || dow === 6 ? 20 : 0);
+    for (let m = toMin(b.open); m <= toMin(b.last); m += 30) {
+      const tm = fromMin(m);
+      list.push({ tm, taken: hash(`${state.biz}|${state.date}|${tm}|${state.party > 4 ? "L" : "S"}`) % 100 < rate });
+    }
+  } else if (b.kind === "salon") {
+    const s = b.services.find(x => x.id === state.serviceId);
+    const h = b.hours[dow] || b.hours.def;
+    for (let m = toMin(h[0]); m + s.dur <= toMin(h[1]); m += 30) {
+      const tm = fromMin(m);
+      list.push({ tm, taken: hash(`${state.biz}|${state.date}|${tm}`) % 100 < 38 });
+    }
+  } else {
+    const c = b.classes.find(x => x.id === state.classId);
+    (c.times[dow] || []).forEach(tm => {
+      let left = Math.max(0, c.cap - (hash(`${state.date}|${c.id}|${tm}`) % (c.cap + 4)));
+      if (mine(tm)) left = Math.max(0, left - 1);
+      list.push({ tm, taken: left === 0, left });
+    });
+  }
+  return list.filter(s => future(s.tm)).map(s => ({ ...s, mine: mine(s.tm) }));
+}
+
+/* ---------- rendering ---------- */
+function renderChoice() {
+  const b = BIZ[state.biz], L = state.lang;
+  if (b.kind === "resto") {
+    return `<div class="step done" id="s1"><h3><span class="num">1</span>${t("s1resto")}</h3>
+      <div class="stepper" role="group" aria-label="${t("party")}">
+        <button data-act="party" data-val="-1" aria-label="${t("fewer")}" ${state.party <= 1 ? "disabled" : ""}>−</button>
+        <output aria-live="polite">${t("people")(state.party)}</output>
+        <button data-act="party" data-val="1" aria-label="${t("more")}" ${state.party >= 8 ? "disabled" : ""}>+</button>
+      </div>
+      <p class="hint">${t("bigGroup")}</p>
+      <div class="row" role="group" aria-label="${t("seating")}">
+        ${["indoor", "terrace"].map(s => `<button class="pill" data-act="seating" data-val="${s}" aria-pressed="${state.seating === s}">${t(s)}</button>`).join("")}
+      </div></div>`;
+  }
+  const isGym = b.kind === "gym";
+  const items = isGym ? b.classes : b.services;
+  const sel = isGym ? state.classId : state.serviceId;
+  return `<div class="step ${sel ? "done" : ""}" id="s1"><h3><span class="num">1</span>${t(isGym ? "s1gym" : "s1salon")}</h3>
+    <div class="opt-list">${items.map(i => `<button class="opt" data-act="pick" data-val="${i.id}" aria-pressed="${sel === i.id}">
+      <span>${esc(i.name[L])}</span><small>${i.dur} min${isGym ? "" : `, ${price(i.price)}`}</small></button>`).join("")}
+    </div></div>`;
+}
+
+function renderDays() {
+  const now = new Date(), out = [];
+  const dowF = new Intl.DateTimeFormat(locale(), { weekday: "short" });
+  const monF = new Intl.DateTimeFormat(locale(), { month: "short" });
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    const k = keyOf(d), st = dayStatus(d);
+    out.push(`<button class="day" data-act="date" data-val="${k}" aria-pressed="${state.date === k}" ${st.ok ? "" : "disabled"}
+      aria-label="${fmtDate(k, true)}${st.ok ? "" : ", " + st.label}">
+      <span class="dow">${i === 0 ? t("today") : dowF.format(d)}</span>
+      <span class="dnum">${d.getDate()}</span>
+      <span class="mon">${st.ok ? monF.format(d) : st.label}</span></button>`);
+  }
+  return `<div class="step ${state.date ? "done" : ""}" id="s2"><h3><span class="num">2</span>${t("s2")}</h3>
+    <div class="days">${out.join("")}</div></div>`;
+}
+
+function renderTimes() {
+  const list = slots(), gym = BIZ[state.biz].kind === "gym";
+  const open = list.some(s => !s.taken && !s.mine);
+  const body = !list.length || !open ? `<p class="hint">${t("noSlots")}</p>` : "";
+  const grid = list.length ? `<div class="times">${list.map(s => {
+    let sub = "";
+    if (s.mine) sub = t("yours");
+    else if (gym) sub = s.left === 0 ? t("full") : t("spots")(s.left);
+    else if (s.taken) sub = t("taken");
+    const dis = s.taken || s.mine;
+    return `<button class="time" data-act="time" data-val="${s.tm}" aria-pressed="${state.time === s.tm}" ${dis ? "disabled" : ""}>
+      ${fmtTime(s.tm)}${sub ? `<small>${sub}</small>` : ""}</button>`;
+  }).join("")}</div>` : "";
+  return `<div class="step ${state.time ? "done" : ""}" id="s3"><h3><span class="num">3</span>${t("s3")}</h3>${grid}${body}</div>`;
+}
+
+function field(name, label, type, auto, extra = "") {
+  const err = state.errors[name];
+  return `<div class="field"><label for="f-${name}">${label}</label>
+    <input id="f-${name}" name="${name}" type="${type}" autocomplete="${auto}" value="${esc(state.form[name])}"
+      ${err ? `aria-invalid="true" aria-describedby="e-${name}"` : ""} ${extra} />
+    ${err ? `<span class="err" id="e-${name}">${t(err)}</span>` : ""}</div>`;
+}
+
+function renderDetails() {
+  const b = BIZ[state.biz];
+  return `<div class="step" id="s4"><h3><span class="num">4</span>${t("s4")}</h3>
+    <form id="details" novalidate>
+      <div class="summary"><strong>${b.name}</strong><br>${esc(whatLabel({ ...state, biz: state.biz }))}<br>${fmtDate(state.date, true)}, ${fmtTime(state.time)}</div>
+      ${field("name", t("name"), "text", "name")}
+      ${field("email", t("email"), "email", "email", 'inputmode="email"')}
+      ${field("phone", t("phone"), "tel", "tel")}
+      <div class="field"><label for="f-notes">${t("notes")}</label>
+        <textarea id="f-notes" name="notes" rows="2" placeholder="${t("notesPh")[b.kind]}">${esc(state.form.notes)}</textarea></div>
+      <button class="primary full" type="submit">${t("confirm")}</button>
+    </form></div>`;
+}
+
+function renderConfirm(bk) {
+  return `<div class="confirm" id="confirmBox" tabindex="-1">
+    <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#f1eefe"/>
+      <path d="M17 29l7 7 15-16" fill="none" stroke="#7a5cf0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h3>${t("done")}</h3>
+    <div class="hint">${t("code")}</div>
+    <div class="code">${bk.code}</div>
+    <ul class="details">
+      <li><span>${t("where")}</span><span>${BIZ[bk.biz].name}</span></li>
+      <li><span>${t("what")}</span><span>${esc(whatLabel(bk))}</span></li>
+      <li><span>${t("when")}</span><span>${fmtDate(bk.date, true)}, <span style="white-space:nowrap">${fmtTime(bk.time)}</span></span></li>
+      <li><span>${t("name")}</span><span>${esc(bk.name)}</span></li>
+    </ul>
+    <p class="hint">${esc(t("doneSub")(bk.email))}</p>
+    <div class="actions">
+      <button class="secondary" data-act="cal" data-val="${bk.id}">${t("addCal")}</button>
+      <button class="primary" data-act="another">${t("another")}</button>
+    </div></div>`;
+}
+
+function renderMine() {
+  const list = state.bookings.filter(b => b.date >= todayKey())
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  return `<section class="mine" aria-labelledby="mineH"><h2 id="mineH" tabindex="-1">${t("mine")}</h2>
+    ${list.length ? list.map(bk => `<div class="bk"><div><strong>${BIZ[bk.biz].name}</strong>
+      <span>${esc(whatLabel(bk))}</span><span>${fmtDate(bk.date)}, ${fmtTime(bk.time)}</span></div>
+      <div class="bk-actions">
+        <button class="link" data-act="cal" data-val="${bk.id}" aria-label="${t("addCal")}, ${bk.code}">📅</button>
+        <button class="link danger" data-act="cancel" data-val="${bk.id}" aria-label="${t("cancel")} ${bk.code}">${t("cancel")}</button>
+      </div></div>`).join("") : `<p class="hint">${t("none")}</p>`}
+    <p class="hint" role="status">${state.note}</p></section>`;
+}
+
+function render() {
+  const L = state.lang, b = BIZ[state.biz];
+  document.documentElement.lang = L;
+  document.title = `${t("title")} | MT Web Designs`;
+  let flow;
+  const bk = state.confirmed && state.bookings.find(x => x.id === state.confirmed);
+  if (bk) flow = renderConfirm(bk);
+  else {
+    state.confirmed = null;
+    flow = renderChoice() + (choiceMade() ? renderDays() : "") + (choiceMade() && state.date ? renderTimes() : "") + (state.time ? renderDetails() : "");
+  }
+  document.getElementById("app").innerHTML = `
+  <header class="top">
+    <a class="brand" href="./"><img src="logo.png" alt="" width="28" height="28" onerror="this.remove()" />MT Web Designs</a>
+    <div class="lang" role="group" aria-label="Language / Langue">
+      <button data-act="lang" data-val="en" aria-pressed="${L === "en"}">EN</button>
+      <button data-act="lang" data-val="fr" aria-pressed="${L === "fr"}">FR</button>
+    </div>
+  </header>
+  <section class="intro"><h1>${t("title")}</h1><p>${t("intro")}</p><span class="demo-note">${t("demo")}</span></section>
+  <main class="wrap">
+    <div class="switch" role="group" aria-label="${t("bizLabel")}">
+      ${["resto", "gym", "salon"].map(k => `<button data-act="biz" data-val="${k}" aria-pressed="${state.biz === k}">${t(k)}</button>`).join("")}
+    </div>
+    <section class="card" id="bookingCard" aria-labelledby="bizName">
+      <div class="biz-head"><h2 id="bizName">${b.name}</h2><p>${b.tag[L]}, ${b.area}</p></div>
+      ${flow}
+    </section>
+    ${renderMine()}
+    <section class="cta"><h2>${t("ctaT")}</h2><p>${t("ctaP")}</p><a href="./#contact">${t("ctaB")}</a></section>
+  </main>
+  <footer>© 2026 <a href="./">MT Web Designs</a>, Montréal</footer>`;
+}
+
+/* ---------- actions ---------- */
+function resetFlow() {
+  Object.assign(state, { party: 2, seating: "indoor", classId: null, serviceId: null, date: null, time: null, errors: {}, confirmed: null });
+}
+function makeCode() {
+  const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "MT-";
+  for (let i = 0; i < 4; i++) s += c[Math.floor(Math.random() * c.length)];
+  return s;
+}
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "start" });
+}
+function downloadIcs(id) {
+  const bk = state.bookings.find(b => b.id === id);
+  if (!bk) return;
+  const b = BIZ[bk.biz];
+  const start = dateOf(bk.date), m = toMin(bk.time);
+  start.setHours(Math.floor(m / 60), m % 60);
+  const end = new Date(start.getTime() + durOf(bk) * 60000);
+  const f = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  const e = s => String(s).replace(/[\\;,]/g, x => "\\" + x).replace(/\n/g, "\\n");
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+  const ics = [
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//MT Web Designs//Booking demo//EN", "BEGIN:VEVENT",
+    `UID:${bk.id}@mtwebdesigns.ca`, `DTSTAMP:${stamp}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
+    `SUMMARY:${e(`${b.name}: ${whatLabel(bk)}`)}`, `LOCATION:${e(`${b.area}, Montréal`)}`,
+    `DESCRIPTION:${e(`${t("code")}: ${bk.code} (demo)`)}`, "END:VEVENT", "END:VCALENDAR"
+  ].join("\r\n");
+  const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  const a = document.createElement("a");
+  a.href = url; a.download = `booking-${bk.code}.ics`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]");
+  if (!el || el.disabled) return;
+  const act = el.dataset.act, val = el.dataset.val;
+  let focusSel = `[data-act="${act}"]` + (val != null ? `[data-val="${val}"]` : "");
+  let scroll = null;
+  state.note = "";
+  switch (act) {
+    case "lang": state.lang = val; save(); break;
+    case "biz": if (state.biz !== val) { state.biz = val; resetFlow(); } break;
+    case "party": state.party = Math.min(8, Math.max(1, state.party + Number(val))); state.time = null; break;
+    case "seating": state.seating = val; state.time = null; break;
+    case "pick":
+      if (BIZ[state.biz].kind === "gym") state.classId = val; else state.serviceId = val;
+      state.time = null;
+      if (state.date && !dayStatus(dateOf(state.date)).ok) state.date = null;
+      scroll = state.date ? "s3" : "s2";
+      break;
+    case "date": state.date = val; state.time = null; scroll = "s3"; break;
+    case "time": state.time = val; scroll = "s4"; break;
+    case "cal": downloadIcs(val); return;
+    case "another": resetFlow(); scroll = "bookingCard"; focusSel = '#bookingCard .switch button[aria-pressed="true"], #s1 button'; break;
+    case "cancel":
+      state.bookings = state.bookings.filter(b => b.id !== val);
+      if (state.confirmed === val) state.confirmed = null;
+      save(); state.note = t("cancelled"); focusSel = "#mineH";
+      break;
+  }
+  render();
+  const f = document.querySelector(focusSel);
+  if (f && !f.disabled) f.focus({ preventScroll: true });
+  if (scroll) goTo(scroll);
+});
+
+document.addEventListener("input", e => {
+  const el = e.target;
+  if (el.form && el.form.id === "details" && el.name in state.form) state.form[el.name] = el.value;
+});
+
+document.addEventListener("submit", e => {
+  if (e.target.id !== "details") return;
+  e.preventDefault();
+  const f = state.form, errs = {};
+  if (!f.name.trim()) errs.name = "errName";
+  if (!/^\S+@\S+\.\S+$/.test(f.email.trim())) errs.email = "errEmail";
+  state.errors = errs;
+  if (Object.keys(errs).length) {
+    render();
+    document.getElementById(errs.name ? "f-name" : "f-email").focus();
+    return;
+  }
+  const bk = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    code: makeCode(), biz: state.biz, party: state.party, seating: state.seating,
+    classId: state.classId, serviceId: state.serviceId, date: state.date, time: state.time,
+    name: f.name.trim(), email: f.email.trim()
+  };
+  state.bookings.push(bk);
+  save();
+  state.confirmed = bk.id;
+  state.form.notes = "";
+  render();
+  document.getElementById("confirmBox").focus({ preventScroll: true });
+  goTo("bookingCard");
+});
+
+load();
+render();
+})();
+</script>
+</body>
+</html>

@@ -60,7 +60,10 @@ header h1{
 .logo{
   width:48px;
   height:48px;
-  filter:brightness(1.25);
+  padding:6px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
 }
 
 /* NAV */
@@ -87,8 +90,10 @@ nav a{
   text-align:center;
   background:linear-gradient(135deg,var(--light-blue),var(--violet));
   color:white;
+  text-shadow:0 1px 3px rgba(0,0,0,0.25);
 }
 .hero h2{
+  color:white;
   font-size:1.8rem;
   margin-bottom:10px;
 }
@@ -126,6 +131,31 @@ h2{
 .service h3{
   color:var(--violet);
   margin-bottom:0.8rem;
+}
+
+#portfolio > p,
+#portfolio > h3{ text-align:center; }
+#portfolio > h3{ color:var(--violet); margin-top:8px; }
+
+/* PROJECT CARD */
+.project{
+  background:white;
+  padding:1.5rem;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  margin:18px 0 32px;
+  text-align:center;
+}
+.project h3{ color:var(--violet); margin-bottom:0.5rem; }
+.project-link{
+  display:inline-block;
+  margin-top:14px;
+  padding:10px 24px;
+  border-radius:999px;
+  background:var(--violet);
+  color:white;
+  font-weight:700;
+  text-decoration:none;
 }
 
 /* TRACKER APP */
@@ -237,6 +267,12 @@ li.expense-item{ color:var(--expense); }
   cursor:pointer;
 }
 
+.contact button:disabled{ opacity:0.6; cursor:wait; }
+.hp{ position:absolute; left:-9999px; }
+#formStatus{ min-height:1.2em; font-size:0.95rem; }
+#formStatus.ok{ color:var(--income); }
+#formStatus.err{ color:var(--expense); }
+
 /* FOOTER */
 footer{
   text-align:center;
@@ -245,6 +281,34 @@ footer{
   color:#666;
   margin-top:20px;
   font-size:0.95rem;
+}
+footer p + p{ margin-top:6px; }
+footer a{ color:var(--violet); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+.footer-nav{ display:flex; justify-content:center; flex-wrap:wrap; gap:4px 16px; }
+
+/* CTA BUTTON */
+.cta-button{
+  display:inline-block;
+  margin-top:18px;
+  padding:14px 32px;
+  border-radius:999px;
+  background:white;
+  color:var(--violet);
+  font-weight:700;
+  text-decoration:none;
+  text-shadow:none;
+  box-shadow:0 4px 14px rgba(0,0,0,0.2);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.cta-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-offset:2px; }
+.cta-button:focus-visible{ outline-color:white; }
+@media (prefers-reduced-motion: reduce){
+  .cta-button, .service{ transition:none; }
 }
 
 /* RESPONSIVE */

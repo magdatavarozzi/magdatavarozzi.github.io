@@ -15,11 +15,23 @@ function setLanguage(lang) {
 
     enBtn.classList.toggle("active", lang === "en");
     frBtn.classList.toggle("active", lang === "fr");
+    enBtn.setAttribute("aria-pressed", lang === "en");
+    frBtn.setAttribute("aria-pressed", lang === "fr");
 
     document.documentElement.lang = lang;
+    try { localStorage.setItem("mtwd-lang", lang); } catch (e) {}
 }
 
-setLanguage("en");
+// Shared with booking.html: remembered choice, else the browser's language
+function initialLanguage() {
+    try {
+        const saved = localStorage.getItem("mtwd-lang");
+        if (saved === "en" || saved === "fr") return saved;
+    } catch (e) {}
+    return (navigator.language || "").toLowerCase().startsWith("fr") ? "fr" : "en";
+}
+
+setLanguage(initialLanguage());
 enBtn.onclick = () => setLanguage("en");
 frBtn.onclick = () => setLanguage("fr");
 
@@ -51,11 +63,13 @@ if (trackerForm) {
 
         li.innerHTML = `
             <div class="tx-left">
-                <span class="tx-desc">${desc}</span>
-                <span class="tx-amount">${fmt(amount)}</span>
+                <span class="tx-desc"></span>
+                <span class="tx-amount"></span>
             </div>
-            <button class="tx-delete">×</button>
+            <button class="tx-delete" aria-label="Delete">×</button>
         `;
+        li.querySelector(".tx-desc").textContent = desc;
+        li.querySelector(".tx-amount").textContent = fmt(amount);
 
         li.dataset.amount = amount;
         li.dataset.type = type;
@@ -83,16 +97,40 @@ if (trackerForm) {
     });
 }
 
-// CONTACT FORM
+// CONTACT FORM (Formspree)
 const contactForm = document.getElementById("contactForm");
-if (contactForm) {
-    contactForm.addEventListener("submit", e => {
-        e.preventDefault();
-        const name = contactForm.name.value.trim();
-        const email = contactForm.email.value.trim();
-        const message = contactForm.message.value.trim();
-        const mailto = `mailto:magdatavarozzi@hotmail.com?subject=${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0D%0AFrom:%20${encodeURIComponent(email)}`;
-        window.location.href = mailto;
-    });
+const formStatus = document.getElementById("formStatus");
+
+const formMsgs = {
+    en: { sending: "Sending…", success: "Thanks! Your message was sent. I'll reply soon.", error: "Your message didn't send. Check your connection and try again." },
+    fr: { sending: "Envoi en cours…", success: "Merci! Votre message a été envoyé. Je vous répondrai bientôt.", error: "Votre message n'a pas été envoyé. Vérifiez votre connexion et réessayez." }
+};
+
+function showStatus(key, state) {
+    const lang = document.documentElement.lang === "fr" ? "fr" : "en";
+    formStatus.textContent = formMsgs[lang][key];
+    formStatus.className = state || "";
 }
 
+if (contactForm) {
+    contactForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        const button = contactForm.querySelector("button[type=submit]");
+        button.disabled = true;
+        showStatus("sending");
+        try {
+            const res = await fetch(contactForm.action, {
+                method: "POST",
+                body: new FormData(contactForm),
+                headers: { Accept: "application/json" }
+            });
+            if (!res.ok) throw new Error(res.status);
+            contactForm.reset();
+            showStatus("success", "ok");
+        } catch (err) {
+            showStatus("error", "err");
+        } finally {
+            button.disabled = false;
+        }
+    });
+}

@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MT Web Designs</title>
+    <title>MT Web Designs | Web Design & AI Solutions in Montréal</title>
+    <meta name="description" content="MT Web Designs creates modern, responsive websites, smart AI automations and digital consulting for small businesses in Montréal." />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:title" content="MT Web Designs | Web Design & AI Solutions in Montréal" />
+    <meta property="og:description" content="Modern websites, AI automations and digital consulting for small businesses in Montréal." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mtwebdesigns.ca/" />
+    <meta property="og:image" content="https://www.mtwebdesigns.ca/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,7 +27,7 @@
 
 <header>
     <h1>
-        <img src="logo.png" class="logo" alt="Logo" />
+        <img src="logo.png" class="logo" alt="MT Web Designs logo" width="48" height="48" />
         MT Web Designs
     </h1>
     <p data-en="Your Digital Presence, Powered by AI."
@@ -42,6 +53,7 @@
        data-fr="Créer des sites modernes et intelligents qui simplifient, connectent et inspirent.">
        Creating modern, intelligent websites and digital tools that simplify, connect, and inspire.
     </p>
+    <a href="#contact" class="cta-button" data-en="Get a Free Quote" data-fr="Obtenir un devis gratuit">Get a Free Quote</a>
 </section>
 
 <main>
@@ -88,6 +100,15 @@
        Sample projects and digital tools developed for innovation and simplicity.
     </p>
 
+    <div class="project">
+        <h3 data-en="Online Booking System - Demo" data-fr="Système de réservation en ligne - Démo">Online Booking System - Demo</h3>
+        <p data-en="A bilingual booking tool for restaurants, gyms and salons. Customers pick a service, day and time, and get an instant confirmation."
+           data-fr="Un outil de réservation bilingue pour restaurants, gyms et salons. Le client choisit un service, une date et une heure, et reçoit une confirmation immédiate.">
+           A bilingual booking tool for restaurants, gyms and salons. Customers pick a service, day and time, and get an instant confirmation.
+        </p>
+        <a href="booking.html" class="project-link" data-en="Try the demo" data-fr="Essayer la démo">Try the demo</a>
+    </div>
+
     <h3 data-en="Finance Tracker Lite - Demo" data-fr="Finance Tracker Lite - Démo">
         Finance Tracker Lite - Demo
     </h3>
@@ -131,18 +152,28 @@
        Have a project in mind or want to explore new ideas? Let’s create something simple and impactful.
     </p>
 
-    <form id="contactForm">
-        <input name="name" type="text" data-en-placeholder="Name" data-fr-placeholder="Nom" placeholder="Name" />
-        <input name="email" type="email" data-en-placeholder="Email" data-fr-placeholder="Courriel" placeholder="Email" />
-        <textarea name="message" rows="4" data-en-placeholder="Message" data-fr-placeholder="Message" placeholder="Message"></textarea>
+    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input name="name" type="text" autocomplete="name" data-en-placeholder="Name" data-fr-placeholder="Nom" placeholder="Name" required />
+        <input name="email" type="email" autocomplete="email" data-en-placeholder="Email" data-fr-placeholder="Courriel" placeholder="Email" required />
+        <textarea name="message" rows="4" data-en-placeholder="Message" data-fr-placeholder="Message" placeholder="Message" required></textarea>
+        <input type="hidden" name="_subject" value="New message from mtwebdesigns.ca" />
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit" data-en="Send Message" data-fr="Envoyer">Send Message</button>
+        <p id="formStatus" role="status" aria-live="polite"></p>
     </form>
 </section>
 
 </main>
 
 <footer>
-    © 2025 MT Web Designs | Montréal, QC
+    <p>© 2026 MT Web Designs | Montréal, QC</p>
+    <p><a href="mailto:magdatavarozzi@hotmail.com">magdatavarozzi@hotmail.com</a></p>
+    <p class="footer-nav">
+        <a href="#home" data-en="Home" data-fr="Accueil">Home</a>
+        <a href="#services" data-en="Services" data-fr="Services">Services</a>
+        <a href="#portfolio" data-en="Portfolio" data-fr="Portfolio">Portfolio</a>
+        <a href="#contact" data-en="Contact" data-fr="Contact">Contact</a>
+    </p>
 </footer>
 
 <script src="script.js"></script>
