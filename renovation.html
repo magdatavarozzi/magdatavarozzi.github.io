@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rénovations Beaubien | Concept by MT Web Designs</title>
+<meta name="description" content="Concept website for a fictional Montréal renovation company, designed by MT Web Designs." />
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,600..800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#1f2328; --muted:#5d6166; --paper:#f7f3ed; --sand:#ece2d4; --line:#ddd2c2;
+  --accent:#b9501f; --accent-dark:#963f16; --blue:#1d3a57; --white:#fff;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:'Source Sans 3',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:1.05rem;line-height:1.6;color:var(--ink);background:var(--paper)}
+h1,h2,h3{font-family:'Archivo','Arial Narrow',Arial,sans-serif;font-stretch:112%;line-height:1.1;letter-spacing:-0.01em}
+a{color:inherit}
+img,svg{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* demo bar */
+.demo-bar{background:var(--ink);color:#e9e4dc;font-size:.85rem;text-align:center;padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px}
+.demo-bar a{color:#fff;font-weight:600}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:20;background:rgba(247,243,237,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:34px;height:34px;flex:none}
+.brand span{font-family:'Archivo',Arial,sans-serif;font-weight:800;font-stretch:118%;font-size:1.05rem;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+.brand small{display:block;font-weight:600;font-size:.62rem;letter-spacing:.18em;color:var(--accent);margin-top:3px}
+.nav{display:flex;gap:22px}
+.nav a{text-decoration:none;font-weight:600;font-size:.95rem}
+.nav a:hover{color:var(--accent)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.lang{display:flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
+.lang button{border:none;background:transparent;padding:4px 9px;font-weight:600;font-size:.85rem;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:6px;padding:12px 20px;font-weight:600;text-decoration:none;cursor:pointer;text-align:center}
+.btn:hover{background:var(--accent-dark)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.small{padding:8px 14px;font-size:.92rem}
+@media (max-width:820px){.nav{display:none}}
+@media (max-width:420px){.head-actions .btn.small{display:none}}
+
+/* hero */
+.hero{padding:56px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+.eyebrow{display:inline-block;font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800}
+.hero p.lead{font-size:1.15rem;color:var(--muted);margin:18px 0 26px;max-width:32em}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:28px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.facts strong{display:block;font-family:'Archivo',Arial,sans-serif;font-size:1.6rem;font-weight:800;line-height:1.1}
+.facts span{font-size:.88rem;color:var(--muted)}
+.blueprint{background:var(--blue);border-radius:10px;padding:18px;box-shadow:0 18px 40px rgba(29,58,87,.25);
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:22px 22px}
+.blueprint figcaption{color:#cfe0f0;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-top:8px;display:flex;justify-content:space-between}
+@media (max-width:820px){.hero{padding:36px 0 48px}.hero-grid{grid-template-columns:1fr;gap:32px}}
+
+/* sections */
+section.block{padding:72px 0}
+.alt{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{max-width:40em;margin-bottom:34px}
+.sec-head h2{font-size:clamp(1.8rem,4.5vw,2.5rem);font-weight:800}
+.sec-head p{color:var(--muted);margin-top:10px}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.svc{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column}
+.svc svg{width:40px;height:40px;margin-bottom:14px}
+.svc h3{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+.svc p{color:var(--muted);font-size:.98rem;flex:1}
+.svc .from{margin-top:14px;font-weight:600;color:var(--accent-dark)}
+
+/* before/after */
+.ba{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);max-width:860px;margin:0 auto;background:#ddd;--pos:50%;touch-action:pan-y}
+.ba svg{width:100%;height:auto}
+.ba .before{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.ba .divider{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none}
+.ba .knob{position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25);display:grid;place-items:center;color:var(--ink);font-weight:700}
+.ba .tag{position:absolute;top:12px;padding:3px 10px;border-radius:4px;background:rgba(31,35,40,.85);color:#fff;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+.ba .tag.b{left:12px}.ba .tag.a{right:12px}
+.ba input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:3px}
+.ba-caption{text-align:center;color:var(--muted);font-size:.95rem;margin-top:12px}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;counter-reset:s;list-style:none}
+.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:16px}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:'Archivo',Arial,sans-serif;font-weight:800;font-size:1.9rem;color:var(--accent);display:block;line-height:1;margin-bottom:10px}
+.steps h3{font-size:1.15rem;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:.98rem}
+
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.review{background:var(--paper);border-radius:10px;padding:24px;border:1px solid var(--line)}
+.review blockquote{font-size:1.08rem}
+.review .stars{color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+.review figcaption{margin-top:14px;font-weight:600}
+.review figcaption span{display:block;font-weight:400;color:var(--muted);font-size:.9rem}
+
+/* quote */
+.quote-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:44px;align-items:start}
+.contact-list{list-style:none;margin-top:22px;display:grid;gap:12px}
+.contact-list li{display:flex;gap:12px;align-items:flex-start}
+.contact-list svg{width:22px;height:22px;flex:none;margin-top:3px}
+.contact-list strong{display:block}
+.card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:24px;box-shadow:0 10px 30px rgba(31,35,40,.06)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:5px;margin-bottom:14px}
+.field label{font-weight:600;font-size:.95rem}
+.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:6px;background:#fff;font-size:1rem}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink);outline:none}
+.field [aria-invalid="true"]{border-color:#c0261f}
+.err{color:#c0261f;font-size:.88rem}
+.note{font-size:.85rem;color:var(--muted);margin-top:10px}
+.thanks{text-align:center;padding:10px 0}
+.thanks svg{width:54px;height:54px;margin:0 auto 12px}
+.thanks h3{font-size:1.5rem;margin-bottom:8px}
+.thanks p{color:var(--muted)}
+.thanks:focus{outline:none}
+@media (max-width:820px){.quote-grid{grid-template-columns:1fr;gap:28px}}
+@media (max-width:480px){.row2{grid-template-columns:1fr;gap:0}}
+
+/* footer */
+footer{background:var(--ink);color:#d8d3cb;padding:40px 0 calc(28px + env(safe-area-inset-bottom,0px));font-size:.95rem}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer .brand span{color:#fff}
+footer small{display:block;margin-top:24px;color:#a9a39a;font-size:.82rem}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <span data-en="Concept website for a fictional business, designed by" data-fr="Site concept pour une entreprise fictive, conçu par">Concept website for a fictional business, designed by</span>
+  <a href="./">MT Web Designs</a>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="#top" aria-label="Rénovations Beaubien">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#1f2328"/><path d="M9 21 20 11l11 10" fill="none" stroke="#b9501f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 19v11h14V19" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><path d="M18 30v-6h4v6" fill="none" stroke="#fff" stroke-width="2.5"/></svg>
+      <span>Rénovations<br>Beaubien<small data-en="Montréal · since 2008" data-fr="Montréal · depuis 2008">Montréal · since 2008</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#services" data-en="Services" data-fr="Services">Services</a>
+      <a href="#projects" data-en="Projects" data-fr="Réalisations">Projects</a>
+      <a href="#process" data-en="How it works" data-fr="Notre méthode">How it works</a>
+      <a href="#reviews" data-en="Reviews" data-fr="Avis">Reviews</a>
+    </nav>
+    <div class="head-actions">
+      <div class="lang" role="group" aria-label="Language / Langue">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <a class="btn small" href="#quote" data-en="Free quote" data-fr="Soumission gratuite">Free quote</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow" data-en="Kitchens · Bathrooms · Basements" data-fr="Cuisines · Salles de bain · Sous-sols">Kitchens · Bathrooms · Basements</span>
+        <h1 data-en="Renovations done right, and on time." data-fr="Des rénovations bien faites, et dans les délais.">Renovations done right, and on time.</h1>
+        <p class="lead" data-en="We renovate homes and plexes in Rosemont, Villeray and the Plateau. One fixed-price quote, one project lead, and a clean site every evening."
+           data-fr="Nous rénovons maisons et plex à Rosemont, Villeray et sur le Plateau. Une soumission à prix fixe, un seul chargé de projet, et un chantier propre chaque soir.">We renovate homes and plexes in Rosemont, Villeray and the Plateau. One fixed-price quote, one project lead, and a clean site every evening.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="#quote" data-en="Get a free quote" data-fr="Demander une soumission">Get a free quote</a>
+          <a class="btn ghost" href="#projects" data-en="See our work" data-fr="Voir nos réalisations">See our work</a>
+        </div>
+        <div class="facts">
+          <div><strong>18</strong><span data-en="years in Montréal" data-fr="ans à Montréal">years in Montréal</span></div>
+          <div><strong>450+</strong><span data-en="projects completed" data-fr="projets réalisés">projects completed</span></div>
+          <div><strong>2 <span data-en="yrs" data-fr="ans" style="font-size:1rem;color:inherit">yrs</span></strong><span data-en="warranty on labour" data-fr="de garantie sur la main-d’œuvre">warranty on labour</span></div>
+        </div>
+      </div>
+      <figure class="blueprint">
+        <svg viewBox="0 0 420 300" role="img" aria-label="Line drawing of a Montréal plex with its outdoor staircase">
+          <g fill="none" stroke="#e8f1fa" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M40 270h340"/>
+            <rect x="80" y="70" width="260" height="200"/>
+            <path d="M72 70h276M80 60h260v10"/>
+            <rect x="104" y="96" width="44" height="58"/><rect x="188" y="96" width="44" height="58"/><rect x="272" y="96" width="44" height="58"/>
+            <path d="M104 125h44M126 96v58M188 125h44M210 96v58M272 125h44M294 96v58"/>
+            <rect x="104" y="186" width="44" height="58"/><rect x="272" y="186" width="44" height="58"/>
+            <path d="M104 215h44M126 186v58M272 215h44M294 186v58"/>
+            <rect x="192" y="190" width="36" height="80"/><circle cx="221" cy="232" r="2"/>
+            <path d="M180 170h60v10h-60z"/>
+            <path d="M240 175c30 0 30 40 60 40M250 175v10M262 178v12M274 185v12M286 196v12M298 210v10" opacity=".9"/>
+            <path d="M240 162c34 0 34 40 66 40" stroke-dasharray="4 5" opacity=".6"/>
+          </g>
+          <g fill="#cfe0f0" font-family="Arial, sans-serif" font-size="11" letter-spacing="1">
+            <path d="M80 286h260" stroke="#cfe0f0" stroke-width="1"/><path d="M80 281v10M340 281v10" stroke="#cfe0f0"/>
+            <text x="210" y="298" text-anchor="middle">7,62 m</text>
+            <path d="M364 70v200" stroke="#cfe0f0" stroke-width="1"/><path d="M359 70h10M359 270h10" stroke="#cfe0f0"/>
+          </g>
+          <circle cx="352" cy="44" r="16" fill="none" stroke="#e08a5c" stroke-width="2"/>
+          <text x="352" y="48" text-anchor="middle" fill="#e08a5c" font-family="Arial, sans-serif" font-size="11" font-weight="700">A-1</text>
+        </svg>
+        <figcaption><span data-en="Triplex · Rosemont" data-fr="Triplex · Rosemont">Triplex · Rosemont</span><span data-en="Full renovation" data-fr="Rénovation complète">Full renovation</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block alt" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-en="What we renovate" data-fr="Ce que nous rénovons">What we renovate</h2>
+        <p data-en="Clear starting prices, so you know if we fit your budget before we even visit." data-fr="Des prix de départ clairs, pour savoir si on correspond à votre budget avant même la visite.">Clear starting prices, so you know if we fit your budget before we even visit.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#1f2328" stroke-width="2.2" stroke-linejoin="round"><rect x="5" y="16" width="30" height="18" rx="1"/><path d="M5 22h30M20 22v12M15 27h2M23 27h2"/><rect x="7" y="5" width="26" height="7" rx="1"/><path d="M24 16v-4" stroke="#b9501f"/></svg>
+          <h3 data-en="Kitchens" data-fr="Cuisines">Kitchens</h3>
+          <p data-en="New layout, cabinets, counters and lighting, with plumbing and electrical handled by licensed trades." data-fr="Nouvel aménagement, armoires, comptoirs et éclairage, avec plomberie et électricité par des maîtres licenciés.">New layout, cabinets, counters and lighting, with plumbing and electrical handled by licensed trades.</p>
+          <p class="from" data-en="From $28,000" data-fr="À partir de 28 000 $">From $28,000</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#1f2328" stroke-width="2.2" stroke-linejoin="round"><path d="M5 21h30v4a8 8 0 0 1-8 8H13a8 8 0 0 1-8-8z"/><path d="M9 21V9a4 4 0 0 1 8 0"/><path d="M17 13l3 3" stroke="#b9501f"/><path d="M12 33l-2 3M28 33l2 3"/></svg>
+          <h3 data-en="Bathrooms" data-fr="Salles de bain">Bathrooms</h3>
+          <p data-en="Walk-in showers, heated floors and waterproofing done properly the first time." data-fr="Douches en céramique, planchers chauffants et imperméabilisation faite correctement du premier coup.">Walk-in showers, heated floors and waterproofing done properly the first time.</p>
+          <p class="from" data-en="From $16,000" data-fr="À partir de 16 000 $">From $16,000</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#1f2328" stroke-width="2.2" stroke-linejoin="round"><path d="M4 12h8v6h8v6h8v6h8"/><path d="M4 34h32" /><path d="M8 6h24" stroke="#b9501f"/></svg>
+          <h3 data-en="Basements" data-fr="Sous-sols">Basements</h3>
+          <p data-en="Insulation, drainage and a finished space you will actually use: office, suite or family room." data-fr="Isolation, drainage et un espace fini que vous utiliserez vraiment : bureau, suite ou salle familiale.">Insulation, drainage and a finished space you will actually use: office, suite or family room.</p>
+          <p class="from" data-en="From $35,000" data-fr="À partir de 35 000 $">From $35,000</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#1f2328" stroke-width="2.2" stroke-linejoin="round"><rect x="6" y="6" width="22" height="9" rx="1"/><path d="M28 10h4v8H18v5"/><rect x="15" y="23" width="6" height="12" rx="1" stroke="#b9501f"/></svg>
+          <h3 data-en="Floors & painting" data-fr="Planchers et peinture">Floors & painting</h3>
+          <p data-en="Hardwood refinishing, new floors and interior painting, often done in under a week." data-fr="Sablage de bois franc, nouveaux planchers et peinture intérieure, souvent en moins d’une semaine.">Hardwood refinishing, new floors and interior painting, often done in under a week.</p>
+          <p class="from" data-en="From $4 / sq ft" data-fr="À partir de 4 $ / pi²">From $4 / sq ft</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-en="Before and after" data-fr="Avant et après">Before and after</h2>
+        <p data-en="A 1970s kitchen in a Villeray duplex, opened up and rebuilt in five weeks. Drag to compare." data-fr="Une cuisine des années 70 dans un duplex de Villeray, ouverte et refaite en cinq semaines. Glissez pour comparer.">A 1970s kitchen in a Villeray duplex, opened up and rebuilt in five weeks. Drag to compare.</p>
+      </div>
+
+      <div class="ba" id="ba">
+        <!-- AFTER -->
+        <svg viewBox="0 0 800 460" aria-hidden="true">
+          <rect width="800" height="460" fill="#f1eee8"/>
+          <rect y="360" width="800" height="100" fill="#d8b98f"/>
+          <g stroke="#c7a57a" stroke-width="2"><path d="M0 385h800M0 412h800M0 438h800M120 360v25M340 385v27M560 360v25M230 412v26M470 412v26M700 385v27"/></g>
+          <rect x="60" y="0" width="680" height="16" fill="#e4e0d8"/>
+          <g fill="#fbfbfa" stroke="#d9d5cd" stroke-width="2"><rect x="80" y="40" width="130" height="120"/><rect x="210" y="40" width="130" height="120"/></g>
+          <rect x="400" y="40" width="130" height="120" fill="#fbfbfa" stroke="#d9d5cd" stroke-width="2"/>
+          <g fill="none" stroke="#c9a57c" stroke-width="3"><path d="M560 70h170M560 120h170"/></g>
+          <g fill="#6d8b74"><circle cx="590" cy="58" r="10"/><circle cx="604" cy="54" r="12"/></g>
+          <rect x="584" y="60" width="26" height="10" fill="#b9501f"/>
+          <rect x="650" y="96" width="18" height="24" fill="#e9e5de" stroke="#cfcac1"/><rect x="674" y="90" width="18" height="30" fill="#e9e5de" stroke="#cfcac1"/>
+          <g fill="#e6e3dd" stroke="#dcd8d0"><rect x="80" y="160" width="660" height="60"/></g>
+          <g stroke="#e0dcd4"><path d="M80 180h660M80 200h660M146 160v20M212 160v20M278 160v20M344 160v20M410 160v20M476 160v20M542 160v20M608 160v20M674 160v20M113 180v20M179 180v20M245 180v20M311 180v20M377 180v20M443 180v20M509 180v20M575 180v20M641 180v20M707 180v20"/></g>
+          <rect x="70" y="220" width="680" height="14" fill="#c89b6d"/>
+          <g fill="#fbfbfa" stroke="#d9d5cd" stroke-width="2"><rect x="80" y="234" width="110" height="126"/><rect x="190" y="234" width="110" height="126"/><rect x="300" y="234" width="120" height="126"/><rect x="420" y="234" width="110" height="126"/><rect x="530" y="234" width="210" height="126"/></g>
+          <g stroke="#1f2328" stroke-width="4" stroke-linecap="round"><path d="M120 250h30M230 250h30M345 250h30M460 250h30M600 250h70"/></g>
+          <rect x="316" y="200" width="88" height="20" rx="3" fill="#cfd3d6"/><path d="M360 200v-26h14" fill="none" stroke="#2a2d31" stroke-width="5" stroke-linecap="round"/>
+          <g stroke="#1f2328" stroke-width="2"><path d="M250 0v70M550 0v70"/></g>
+          <g fill="#1f2328"><path d="M232 70h36l-6 20h-24z"/><path d="M532 70h36l-6 20h-24z"/></g>
+          <g fill="#ffe4a8" opacity=".55"><ellipse cx="250" cy="96" rx="14" ry="4"/><ellipse cx="550" cy="96" rx="14" ry="4"/></g>
+        </svg>
+        <!-- BEFORE -->
+        <div class="before">
+          <svg viewBox="0 0 800 460" aria-hidden="true">
+            <rect width="800" height="460" fill="#c9b48b"/>
+            <g fill="none" stroke="#b9a37a" stroke-width="3"><path d="M0 40h800M0 100h800M0 160h800M0 220h800M0 280h800M0 340h800" opacity=".5"/></g>
+            <rect y="360" width="800" height="100" fill="#a89c80"/>
+            <g fill="#978b70"><rect x="0" y="360" width="50" height="50"/><rect x="100" y="360" width="50" height="50"/><rect x="200" y="360" width="50" height="50"/><rect x="300" y="360" width="50" height="50"/><rect x="400" y="360" width="50" height="50"/><rect x="500" y="360" width="50" height="50"/><rect x="600" y="360" width="50" height="50"/><rect x="700" y="360" width="50" height="50"/><rect x="50" y="410" width="50" height="50"/><rect x="150" y="410" width="50" height="50"/><rect x="250" y="410" width="50" height="50"/><rect x="350" y="410" width="50" height="50"/><rect x="450" y="410" width="50" height="50"/><rect x="550" y="410" width="50" height="50"/><rect x="650" y="410" width="50" height="50"/><rect x="750" y="410" width="50" height="50"/></g>
+            <g fill="#6b4a2e" stroke="#4e3420" stroke-width="3"><rect x="80" y="30" width="110" height="130"/><rect x="190" y="30" width="110" height="130"/><rect x="300" y="30" width="110" height="130"/><rect x="520" y="30" width="110" height="130"/><rect x="630" y="30" width="110" height="130"/></g>
+            <g fill="none" stroke="#8a6440" stroke-width="3"><rect x="94" y="44" width="82" height="102"/><rect x="204" y="44" width="82" height="102"/><rect x="314" y="44" width="82" height="102"/><rect x="534" y="44" width="82" height="102"/><rect x="644" y="44" width="82" height="102"/></g>
+            <rect x="420" y="50" width="90" height="90" fill="#9fb3b8" stroke="#f3efe6" stroke-width="8"/>
+            <rect x="400" y="4" width="130" height="14" fill="#eef0e6" stroke="#b9b9a8"/>
+            <g fill="#d8c79a" stroke="#b8a878"><rect x="80" y="160" width="660" height="60"/></g>
+            <rect x="70" y="220" width="680" height="14" fill="#9c8a62"/>
+            <g fill="#6b4a2e" stroke="#4e3420" stroke-width="3"><rect x="80" y="234" width="110" height="126"/><rect x="190" y="234" width="110" height="126"/><rect x="300" y="234" width="120" height="126"/><rect x="420" y="234" width="110" height="126"/><rect x="530" y="234" width="210" height="126"/></g>
+            <g fill="none" stroke="#8a6440" stroke-width="3"><rect x="94" y="248" width="82" height="98"/><rect x="204" y="248" width="82" height="98"/><rect x="314" y="248" width="92" height="98"/><rect x="434" y="248" width="82" height="98"/><rect x="544" y="248" width="182" height="98"/></g>
+            <g fill="#c9a44a"><circle cx="165" cy="297" r="5"/><circle cx="215" cy="297" r="5"/><circle cx="395" cy="297" r="5"/><circle cx="445" cy="297" r="5"/><circle cx="635" cy="297" r="5"/></g>
+            <rect x="316" y="202" width="88" height="18" rx="2" fill="#b7b7b0"/><path d="M360 202v-18h10" fill="none" stroke="#8d8d86" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="tag b" data-en="Before" data-fr="Avant">Before</span>
+        <span class="tag a" data-en="After" data-fr="Après">After</span>
+        <div class="divider"><div class="knob" aria-hidden="true">⇆</div></div>
+        <input type="range" id="baRange" min="0" max="100" value="50" data-en-aria="Compare before and after" data-fr-aria="Comparer avant et après" aria-label="Compare before and after" />
+      </div>
+      <p class="ba-caption" data-en="Kitchen · Villeray duplex · 5 weeks" data-fr="Cuisine · Duplex à Villeray · 5 semaines">Kitchen · Villeray duplex · 5 weeks</p>
+    </div>
+  </section>
+
+  <section class="block alt" id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-en="How it works" data-fr="Notre méthode">How it works</h2>
+        <p data-en="No surprises on price or schedule. Here is exactly what happens after you call." data-fr="Aucune surprise sur le prix ni l’échéancier. Voici exactement ce qui se passe après votre appel.">No surprises on price or schedule. Here is exactly what happens after you call.</p>
+      </div>
+      <ol class="steps">
+        <li><h3 data-en="Free visit" data-fr="Visite gratuite">Free visit</h3><p data-en="We come see the space, listen to your plans and take measurements. About one hour." data-fr="On vient voir l’espace, écouter vos idées et prendre les mesures. Environ une heure.">We come see the space, listen to your plans and take measurements. About one hour.</p></li>
+        <li><h3 data-en="Fixed-price quote" data-fr="Soumission à prix fixe">Fixed-price quote</h3><p data-en="Within 5 business days you get a detailed quote. The price we sign is the price you pay." data-fr="En 5 jours ouvrables, vous recevez une soumission détaillée. Le prix signé est le prix payé.">Within 5 business days you get a detailed quote. The price we sign is the price you pay.</p></li>
+        <li><h3 data-en="Clean, steady work" data-fr="Travaux propres et suivis">Clean, steady work</h3><p data-en="One project lead, a weekly update, and a site cleaned every evening so you can live at home." data-fr="Un seul chargé de projet, un suivi chaque semaine, et un chantier nettoyé chaque soir pour que vous restiez chez vous.">One project lead, a weekly update, and a site cleaned every evening so you can live at home.</p></li>
+        <li><h3 data-en="Walkthrough & warranty" data-fr="Inspection et garantie">Walkthrough & warranty</h3><p data-en="We inspect everything together before the final payment. Labour is guaranteed for two years." data-fr="On inspecte tout ensemble avant le paiement final. La main-d’œuvre est garantie deux ans.">We inspect everything together before the final payment. Labour is guaranteed for two years.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-en="What clients say" data-fr="Ce que disent nos clients">What clients say</h2>
+        <p data-en="Sample reviews for this concept site." data-fr="Avis fictifs pour ce site concept.">Sample reviews for this concept site.</p>
+      </div>
+      <div class="reviews">
+        <figure class="review">
+          <div class="stars" aria-label="5 / 5">★★★★★</div>
+          <blockquote data-en="They finished our bathroom two days early and the site was spotless every night. We lived at home the whole time." data-fr="Ils ont terminé notre salle de bain deux jours d’avance et le chantier était impeccable chaque soir. On est restés à la maison tout le long.">They finished our bathroom two days early and the site was spotless every night. We lived at home the whole time.</blockquote>
+          <figcaption>Julie &amp; Marc<span>Rosemont</span></figcaption>
+        </figure>
+        <figure class="review">
+          <div class="stars" aria-label="5 / 5">★★★★★</div>
+          <blockquote data-en="The quote was clear and the final bill matched it to the dollar. Rare in renovation. We already booked them for the basement." data-fr="La soumission était claire et la facture finale correspondait au dollar près. C’est rare en rénovation. On les a déjà réservés pour le sous-sol.">The quote was clear and the final bill matched it to the dollar. Rare in renovation. We already booked them for the basement.</blockquote>
+          <figcaption>Samir<span>Villeray</span></figcaption>
+        </figure>
+        <figure class="review">
+          <div class="stars" aria-label="5 / 5">★★★★★</div>
+          <blockquote data-en="Our 1920s plex had surprises behind every wall. They explained each one before changing anything. Great team." data-fr="Notre plex de 1920 cachait des surprises derrière chaque mur. Ils nous ont tout expliqué avant de changer quoi que ce soit. Super équipe.">Our 1920s plex had surprises behind every wall. They explained each one before changing anything. Great team.</blockquote>
+          <figcaption>Catherine<span>Plateau-Mont-Royal</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="quote">
+    <div class="wrap quote-grid">
+      <div>
+        <div class="sec-head" style="margin-bottom:0">
+          <h2 data-en="Get your free quote" data-fr="Obtenez votre soumission gratuite">Get your free quote</h2>
+          <p data-en="Tell us about your project. We reply within one business day to book your visit." data-fr="Parlez-nous de votre projet. Nous répondons en un jour ouvrable pour planifier la visite.">Tell us about your project. We reply within one business day to book your visit.</p>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#b9501f" stroke-width="2"><path d="M5 3h4l2 5-3 2a11 11 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+            <div><strong>514 555-0142</strong><span data-en="Mon–Fri, 7 am to 5 pm" data-fr="Lun–ven, 7 h à 17 h">Mon–Fri, 7 am to 5 pm</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#b9501f" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div><strong data-en="Serving the east-central island" data-fr="Au service du centre-est de l’île">Serving the east-central island</strong><span>Rosemont, Villeray, Plateau, Petite-Patrie, Hochelaga</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#b9501f" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+            <div><strong data-en="Licensed and insured" data-fr="Licencié et assuré">Licensed and insured</strong><span data-en="RBQ licence no. 0000-0000-00 (demo)" data-fr="Licence RBQ n° 0000-0000-00 (démo)">RBQ licence no. 0000-0000-00 (demo)</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card" id="quoteCard">
+        <form id="quoteForm" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="q-name" data-en="Name" data-fr="Nom">Name</label>
+              <input id="q-name" name="name" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="q-phone" data-en="Phone" data-fr="Téléphone">Phone</label>
+              <input id="q-phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="q-email" data-en="Email" data-fr="Courriel">Email</label>
+            <input id="q-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="q-type" data-en="Project" data-fr="Projet">Project</label>
+              <select id="q-type" name="type" required>
+                <option value="" data-en="Choose…" data-fr="Choisir…">Choose…</option>
+                <option value="kitchen" data-en="Kitchen" data-fr="Cuisine">Kitchen</option>
+                <option value="bathroom" data-en="Bathroom" data-fr="Salle de bain">Bathroom</option>
+                <option value="basement" data-en="Basement" data-fr="Sous-sol">Basement</option>
+                <option value="floors" data-en="Floors or painting" data-fr="Planchers ou peinture">Floors or painting</option>
+                <option value="other" data-en="Something else" data-fr="Autre chose">Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="q-budget" data-en="Budget" data-fr="Budget">Budget</label>
+              <select id="q-budget" name="budget">
+                <option value="" data-en="Not sure yet" data-fr="Pas encore certain">Not sure yet</option>
+                <option value="lt15" data-en="Under $15,000" data-fr="Moins de 15 000 $">Under $15,000</option>
+                <option value="15-40" data-en="$15,000 – $40,000" data-fr="15 000 $ – 40 000 $">$15,000 – $40,000</option>
+                <option value="40-80" data-en="$40,000 – $80,000" data-fr="40 000 $ – 80 000 $">$40,000 – $80,000</option>
+                <option value="gt80" data-en="Over $80,000" data-fr="Plus de 80 000 $">Over $80,000</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="q-details" data-en="Tell us about the project (optional)" data-fr="Décrivez le projet (facultatif)">Tell us about the project (optional)</label>
+            <textarea id="q-details" name="details" rows="3" data-en-ph="Size of the room, what you want to change, ideal start date…" data-fr-ph="Taille de la pièce, ce que vous voulez changer, date de début idéale…"></textarea>
+          </div>
+          <button class="btn" type="submit" style="width:100%" data-en="Request my free quote" data-fr="Demander ma soumission">Request my free quote</button>
+          <p class="note" data-en="Demo form: nothing is sent." data-fr="Formulaire de démo : rien n’est envoyé.">Demo form: nothing is sent.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="brand" href="#top" style="color:#fff"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#2d3238"/><path d="M9 21 20 11l11 10" fill="none" stroke="#e08a5c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 19v11h14V19" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg><span>Rénovations<br>Beaubien</span></a>
+      <div>514 555-0142<br><span data-en="Rue Beaubien Est, Montréal" data-fr="Rue Beaubien Est, Montréal">Rue Beaubien Est, Montréal</span></div>
+    </div>
+    <small><span data-en="Concept website. Rénovations Beaubien is a fictional business. Design and development by" data-fr="Site concept. Rénovations Beaubien est une entreprise fictive. Conception et développement par">Concept website. Rénovations Beaubien is a fictional business. Design and development by</span> <a href="./">MT Web Designs</a>.</small>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const btns = document.querySelectorAll(".lang button");
+  let lang = "en";
+
+  function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-en]").forEach(el => { el.textContent = el.dataset[l]; });
+    document.querySelectorAll("[data-en-ph]").forEach(el => { el.placeholder = el.dataset[l + "Ph"]; });
+    document.querySelectorAll("[data-en-aria]").forEach(el => { el.setAttribute("aria-label", el.dataset[l + "Aria"]); });
+    btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
+    document.title = l === "fr" ? "Rénovations Beaubien | Concept par MT Web Designs" : "Rénovations Beaubien | Concept by MT Web Designs";
+    if (document.getElementById("thanks")) showThanks(lastName);
+    try { localStorage.setItem("mtwd-lang", l); } catch (e) {}
+  }
+
+  let initial = (navigator.language || "").toLowerCase().startsWith("fr") ? "fr" : "en";
+  try { const s = localStorage.getItem("mtwd-lang"); if (s === "en" || s === "fr") initial = s; } catch (e) {}
+  btns.forEach(b => b.addEventListener("click", () => applyLang(b.dataset.lang)));
+
+  /* before / after */
+  const ba = document.getElementById("ba"), range = document.getElementById("baRange");
+  const setPos = v => ba.style.setProperty("--pos", v + "%");
+  range.addEventListener("input", () => setPos(range.value));
+
+  /* quote form (demo) */
+  const card = document.getElementById("quoteCard");
+  const form = document.getElementById("quoteForm");
+  const msgs = {
+    en: { name: "Enter your name.", phone: "Enter a phone number.", email: "Enter a valid email.", type: "Choose a project type.",
+          thanks: "Thanks, {n}!", body: "In a real site, your request would go straight to the owner, who replies within one business day.",
+          again: "Send another request" },
+    fr: { name: "Entrez votre nom.", phone: "Entrez un numéro de téléphone.", email: "Entrez un courriel valide.", type: "Choisissez un type de projet.",
+          thanks: "Merci, {n}!", body: "Sur un vrai site, votre demande irait directement au propriétaire, qui répond en un jour ouvrable.",
+          again: "Envoyer une autre demande" }
+  };
+  let lastName = "", formHTML = form.outerHTML;
+
+  function setErr(input, key) {
+    const old = input.parentElement.querySelector(".err");
+    if (old) old.remove();
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
+    if (!key) return;
+    const s = document.createElement("span");
+    s.className = "err"; s.id = input.id + "-err"; s.textContent = msgs[lang][key];
+    input.setAttribute("aria-invalid", "true");
+    input.setAttribute("aria-describedby", s.id);
+    input.parentElement.appendChild(s);
+  }
+
+  function showThanks(name) {
+    const m = msgs[lang];
+    card.innerHTML = `<div class="thanks" id="thanks" tabindex="-1">
+      <svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="26" fill="#f3e3d8"/><path d="M16 28l7 7 15-16" fill="none" stroke="#b9501f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3></h3><p></p><button class="btn ghost" type="button" id="again" style="margin-top:18px"></button></div>`;
+    card.querySelector("h3").textContent = m.thanks.replace("{n}", name);
+    card.querySelector("p").textContent = m.body;
+    const again = card.querySelector("#again");
+    again.textContent = m.again;
+    again.addEventListener("click", () => {
+      card.innerHTML = formHTML;
+      bindForm();
+      applyLang(lang);
+      document.getElementById("q-name").focus();
+    });
+  }
+
+  function bindForm() {
+    const f = document.getElementById("quoteForm");
+    f.addEventListener("submit", e => {
+      e.preventDefault();
+      const get = id => document.getElementById(id);
+      const checks = [
+        [get("q-name"), v => v.trim() !== "", "name"],
+        [get("q-phone"), v => v.replace(/\D/g, "").length >= 10, "phone"],
+        [get("q-email"), v => /^\S+@\S+\.\S+$/.test(v.trim()), "email"],
+        [get("q-type"), v => v !== "", "type"]
+      ];
+      let first = null;
+      checks.forEach(([el, ok, key]) => {
+        const bad = !ok(el.value);
+        setErr(el, bad ? key : null);
+        if (bad && !first) first = el;
+      });
+      if (first) { first.focus(); return; }
+      lastName = get("q-name").value.trim().split(/\s+/)[0];
+      showThanks(lastName);
+      document.getElementById("thanks").focus();
+    });
+  }
+  bindForm();
+  applyLang(initial);
+})();
+</script>
+</body>
+</html>

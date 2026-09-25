@@ -35,80 +35,19 @@ setLanguage(initialLanguage());
 enBtn.onclick = () => setLanguage("en");
 frBtn.onclick = () => setLanguage("fr");
 
-// FINANCE TRACKER — decimals + green/red full-line
-const trackerForm = document.getElementById("trackerForm");
-const transactionsList = document.getElementById("transactions");
-const balanceDisplay = document.getElementById("balance");
-
-let balance = 0;
-
-function fmt(value) {
-    return `$${value.toFixed(2)}`;
-}
-
-if (trackerForm) {
-    trackerForm.addEventListener("submit", e => {
-        e.preventDefault();
-
-        const desc = document.getElementById("desc").value.trim();
-        const amount = parseFloat(document.getElementById("amount").value);
-        const type = document.getElementById("type").value;
-
-        if (!desc || isNaN(amount)) return;
-
-        const li = document.createElement("li");
-
-        if (type === "income") li.classList.add("income-item");
-        else li.classList.add("expense-item");
-
-        li.innerHTML = `
-            <div class="tx-left">
-                <span class="tx-desc"></span>
-                <span class="tx-amount"></span>
-            </div>
-            <button class="tx-delete" aria-label="Delete">×</button>
-        `;
-        li.querySelector(".tx-desc").textContent = desc;
-        li.querySelector(".tx-amount").textContent = fmt(amount);
-
-        li.dataset.amount = amount;
-        li.dataset.type = type;
-
-        transactionsList.appendChild(li);
-
-        balance += type === "income" ? amount : -amount;
-        balanceDisplay.textContent = fmt(balance);
-
-        trackerForm.reset();
-        document.getElementById("type").value = "income";
-    });
-
-    transactionsList.addEventListener("click", e => {
-        if (!e.target.classList.contains("tx-delete")) return;
-
-        const li = e.target.closest("li");
-        const amount = parseFloat(li.dataset.amount);
-        const type = li.dataset.type;
-
-        balance += type === "income" ? -amount : amount;
-        balanceDisplay.textContent = fmt(balance);
-
-        li.remove();
-    });
-}
-
-// CONTACT FORM (Formspree)
+// CONTACT FORM (Formspree, Vanilla JS Ajax)
+// Works without JavaScript too: the form's action/method post straight to Formspree.
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 
 const formMsgs = {
-    en: { sending: "Sending…", success: "Thanks! Your message was sent. I'll reply soon.", error: "Your message didn't send. Check your connection and try again." },
-    fr: { sending: "Envoi en cours…", success: "Merci! Votre message a été envoyé. Je vous répondrai bientôt.", error: "Votre message n'a pas été envoyé. Vérifiez votre connexion et réessayez." }
+    en: { sending: "Sending…", success: "Thanks! Your message was sent. I'll reply soon.", error: "Your message didn't send.", network: "Your message didn't send. Check your connection and try again." },
+    fr: { sending: "Envoi en cours…", success: "Merci! Votre message a été envoyé. Je vous répondrai bientôt.", error: "Votre message n'a pas été envoyé.", network: "Votre message n'a pas été envoyé. Vérifiez votre connexion et réessayez." }
 };
 
-function showStatus(key, state) {
+function showStatus(key, state, detail) {
     const lang = document.documentElement.lang === "fr" ? "fr" : "en";
-    formStatus.textContent = formMsgs[lang][key];
+    formStatus.textContent = formMsgs[lang][key] + (detail ? ` (${detail})` : "");
     formStatus.className = state || "";
 }
 
@@ -118,19 +57,35 @@ if (contactForm) {
         const button = contactForm.querySelector("button[type=submit]");
         button.disabled = true;
         showStatus("sending");
+        let res;
         try {
-            const res = await fetch(contactForm.action, {
+            res = await fetch(contactForm.action, {
                 method: "POST",
                 body: new FormData(contactForm),
                 headers: { Accept: "application/json" }
             });
-            if (!res.ok) throw new Error(res.status);
+        } catch (err) {
+            showStatus("network", "err");
+            button.disabled = false;
+            return;
+        }
+        if (res.ok) {
             contactForm.reset();
             showStatus("success", "ok");
-        } catch (err) {
-            showStatus("error", "err");
-        } finally {
-            button.disabled = false;
+        } else {
+            // Show Formspree's own reason (e.g. reCAPTCHA, unverified email, invalid field)
+            let detail = `error ${res.status}`;
+            try {
+                const data = await res.json();
+                if (data && Array.isArray(data.errors) && data.errors.length) {
+                    detail = data.errors.map(x => x.message).filter(Boolean).join(", ") || detail;
+                } else if (data && data.error) {
+                    detail = data.error;
+                }
+            } catch (err) {}
+            showStatus("error", "err", detail);
+            console.error("Formspree:", res.status, detail);
         }
+        button.disabled = false;
     });
 }

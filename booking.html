@@ -9,12 +9,50 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;700&family=Oswald:wght@500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --violet:#7a5cf0; --violet-dark:#5b3fd6; --light-blue:#a8d8ff;
   --bg:#fafafa; --text:#333; --muted:#6b6880; --line:#e3e1ee; --soft:#f1eefe;
   --err:#d42828; color-scheme:light;
+  --mt:#7a5cf0;
+  --intro-a:#7a5cf0; --intro-b:#a8d8ff;
+  --head-font:'Poppins',system-ui,sans-serif; --head-case:none; --head-track:normal;
+  --head-bg:white; --head-text:#333; --head-accent:#7a5cf0;
+  --btn-case:none; --btn-track:normal;
+  --r:10px; --r-lg:14px; --r-pill:999px;
+}
+/* Bistro: deep green, cream and brass, classic serif */
+body[data-theme="resto"]{
+  --violet:#2f5d50; --violet-dark:#234a3f; --soft:#edf3ef; --line:#dde6e0; --bg:#faf6ee;
+  --intro-a:#1c3a31; --intro-b:#4a8472;
+  --head-font:'Fraunces',Georgia,serif;
+  --head-bg:#1c3a31; --head-text:#f4ecdb; --head-accent:#e2c07d;
+  --r:6px; --r-lg:8px; --r-pill:6px;
+}
+/* Gym: black and volt, condensed uppercase, sharp corners */
+body[data-theme="gym"]{
+  --violet:#141414; --violet-dark:#000; --soft:#f3fadf; --line:#e1e1e1; --bg:#f2f2f2;
+  --intro-a:#0d0d0d; --intro-b:#3a3a3a;
+  --head-font:'Oswald','Arial Narrow',Arial,sans-serif; --head-case:uppercase; --head-track:.04em;
+  --head-bg:#0d0d0d; --head-text:#f2f2f2; --head-accent:#c8f542;
+  --btn-case:uppercase; --btn-track:.06em;
+  --r:3px; --r-lg:4px; --r-pill:3px;
+}
+body[data-theme="gym"] .step.done .num{background:#c8f542;color:#0d0d0d}
+body[data-theme="gym"] .intro h1{color:#c8f542}
+/* Salon: blush and plum, elegant serif, soft rounded shapes */
+body[data-theme="salon"]{
+  --violet:#853a5c; --violet-dark:#6b2c49; --soft:#fbeef2; --line:#f0dde4; --bg:#fdf7f5;
+  --intro-a:#853a5c; --intro-b:#c9869f;
+  --head-font:'Cormorant Garamond',Georgia,serif; --head-track:.01em;
+  --head-bg:#fbeef2; --head-text:#5a2a40; --head-accent:#853a5c;
+  --r:16px; --r-lg:22px; --r-pill:999px;
+}
+body[data-theme="salon"] .biz-head h2,body[data-theme="salon"] .intro h1{font-size:1.9rem;font-weight:700}
+body[data-theme="salon"] .intro h1{font-size:clamp(2rem,6vw,2.6rem)}
+@media (prefers-reduced-motion:no-preference){
+  .intro,.card,.biz-head,.switch button,.opt,.pill,.day,.time,.primary,.num{transition:background-color .35s,color .35s,border-color .35s,border-radius .35s}
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
@@ -25,30 +63,31 @@ button{cursor:pointer}
 
 .top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
   padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:white;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.brand{display:flex;align-items:center;gap:8px;color:var(--violet);font-weight:700;text-decoration:none}
+.brand{display:flex;align-items:center;gap:8px;color:var(--mt);font-weight:700;text-decoration:none}
 .brand img{width:28px;height:28px}
 .lang{display:flex;gap:6px}
-.lang button{padding:6px 10px;border-radius:6px;border:none;background:white;color:var(--violet);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-.lang button[aria-pressed="true"]{background:var(--violet);color:white}
+.lang button{padding:6px 10px;border-radius:6px;border:none;background:white;color:var(--mt);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.lang button[aria-pressed="true"]{background:var(--mt);color:white}
 
-.intro{background:linear-gradient(135deg,var(--violet),var(--light-blue));color:white;text-shadow:0 1px 3px rgba(0,0,0,.25);
+.intro{background:linear-gradient(135deg,var(--intro-a),var(--intro-b));color:white;text-shadow:0 1px 3px rgba(0,0,0,.25);
   padding:36px 20px 60px;text-align:center}
-.intro h1{font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.2;margin-bottom:8px}
+.intro h1{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.2;margin-bottom:8px}
 .intro p{max-width:34em;margin:0 auto}
 .demo-note{display:inline-block;margin-top:14px;font-size:.85rem;background:rgba(255,255,255,.22);padding:4px 12px;border-radius:999px}
 
 .wrap{max-width:720px;margin:-34px auto 0;padding:0 14px 32px}
-.switch{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:white;border-radius:12px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
-.switch button{border:none;background:transparent;padding:10px 4px;border-radius:9px;font-weight:600;color:var(--muted)}
+.switch{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:white;border-radius:var(--r-lg);padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.switch button{border:none;background:transparent;padding:10px 4px;border-radius:var(--r);font-weight:600;color:var(--muted)}
 .switch button[aria-pressed="true"]{background:var(--violet);color:white}
 
-.card{background:white;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.06);margin-top:14px;overflow:hidden}
-.biz-head{padding:18px 20px;border-bottom:1px solid var(--line)}
-.biz-head h2{font-size:1.25rem;color:var(--violet);line-height:1.3}
-.biz-head p{color:var(--muted);font-size:.92rem}
+.card{background:white;border-radius:var(--r-lg);box-shadow:0 4px 14px rgba(0,0,0,.06);margin-top:14px;overflow:hidden}
+.biz-head{padding:20px;border-bottom:1px solid var(--line);background:var(--head-bg);color:var(--head-text)}
+.biz-head h2{font-family:var(--head-font);font-size:1.45rem;color:var(--head-accent);line-height:1.2;text-transform:var(--head-case);letter-spacing:var(--head-track)}
+.biz-head .kicker{display:block;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--head-accent);opacity:.85;margin-bottom:4px}
+.biz-head p{color:var(--head-text);opacity:.85;font-size:.92rem}
 .step{padding:18px 20px;border-bottom:1px solid var(--line)}
 .step:last-child{border-bottom:none}
-.step h3{display:flex;align-items:center;gap:10px;font-size:1rem;margin-bottom:12px}
+.step h3{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);display:flex;align-items:center;gap:10px;font-size:1rem;margin-bottom:12px}
 .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--violet);font-size:.85rem;font-weight:700;flex:none}
 .step.done .num{background:var(--violet);color:white}
 .hint{color:var(--muted);font-size:.85rem;margin-top:10px}
@@ -58,16 +97,16 @@ button{cursor:pointer}
 .stepper button:disabled{opacity:.35;cursor:not-allowed}
 .stepper output{min-width:7.5em;text-align:center;font-weight:600}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.pill{padding:8px 18px;border-radius:999px;border:1.5px solid var(--line);background:white;font-weight:500}
+.pill{padding:8px 18px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:white;font-weight:500}
 .pill[aria-pressed="true"]{border-color:var(--violet);background:var(--violet);color:white}
 
 .opt-list{display:grid;gap:8px}
-.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:white;font-weight:500}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r);background:white;font-weight:500}
 .opt small{color:var(--muted);white-space:nowrap;font-weight:400}
 .opt[aria-pressed="true"]{border-color:var(--violet);background:var(--soft)}
 
 .days{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;margin:0 -20px;padding:2px 20px 8px}
-.day{flex:0 0 70px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:10px;border:1.5px solid var(--line);background:white;line-height:1.25}
+.day{flex:0 0 70px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:var(--r);border:1.5px solid var(--line);background:white;line-height:1.25}
 .day .dow,.day .mon{font-size:.76rem;color:var(--muted)}
 .day .dnum{font-size:1.25rem;font-weight:700}
 .day[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
@@ -76,29 +115,29 @@ button{cursor:pointer}
 .day:disabled .dow,.day:disabled .mon{color:#a9a7b5}
 
 .times{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
-.time{display:flex;flex-direction:column;align-items:center;padding:10px 6px;border-radius:10px;border:1.5px solid var(--line);background:white;font-weight:600;line-height:1.3}
+.time{display:flex;flex-direction:column;align-items:center;padding:10px 6px;border-radius:var(--r);border:1.5px solid var(--line);background:white;font-weight:600;line-height:1.3}
 .time small{font-weight:400;font-size:.74rem;color:var(--muted)}
 .time[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
 .time[aria-pressed="true"] small{color:rgba(255,255,255,.9)}
 .time:disabled{background:#f4f4f7;color:#a9a7b5;cursor:not-allowed}
 .time:disabled small{color:#a9a7b5}
 
-.summary{background:var(--soft);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.92rem}
+.summary{background:var(--soft);border-radius:var(--r);padding:12px 14px;margin-bottom:16px;font-size:.92rem}
 .summary strong{color:var(--violet)}
 .field{display:grid;gap:4px;margin-bottom:12px}
 .field label{font-size:.9rem;font-weight:500}
-.field input,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:white;font-size:1rem}
+.field input,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:var(--r);background:white;font-size:1rem}
 .field input[aria-invalid="true"]{border-color:var(--err)}
 .err{color:var(--err);font-size:.82rem}
-.primary{padding:13px 20px;border-radius:10px;border:none;background:var(--violet);color:white;font-weight:700;font-size:1rem}
+.primary{text-transform:var(--btn-case);letter-spacing:var(--btn-track);padding:13px 20px;border-radius:var(--r);border:none;background:var(--violet);color:white;font-weight:700;font-size:1rem}
 .primary:hover{background:var(--violet-dark)}
 .full{width:100%}
-.secondary{padding:12px 18px;border-radius:10px;border:1.5px solid var(--violet);background:white;color:var(--violet);font-weight:600}
+.secondary{padding:12px 18px;border-radius:var(--r);border:1.5px solid var(--violet);background:white;color:var(--violet);font-weight:600}
 
 .confirm{padding:28px 20px;text-align:center}
 .confirm:focus{outline:none}
 .confirm svg{width:56px;height:56px}
-.confirm h3{font-size:1.3rem;margin:10px 0 6px}
+.confirm h3{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);font-size:1.3rem;margin:10px 0 6px}
 .code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--soft);color:var(--violet);padding:6px 14px;border-radius:8px;margin-top:4px}
 .details{list-style:none;text-align:left;max-width:380px;margin:18px auto 8px;display:grid;gap:8px}
 .details li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:8px}
@@ -109,18 +148,18 @@ button{cursor:pointer}
 .mine{margin-top:26px}
 .mine h2,.cta h2{font-size:1.1rem}
 .mine h2:focus{outline:none}
-.bk{display:flex;justify-content:space-between;align-items:center;gap:10px;background:white;border-radius:10px;padding:12px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-top:8px}
+.bk{display:flex;justify-content:space-between;align-items:center;gap:10px;background:white;border-radius:var(--r);padding:12px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-top:8px}
 .bk span{display:block;color:var(--muted);font-size:.88rem}
 .bk-actions{display:flex;gap:2px;flex:none}
 .link{background:none;border:none;font-weight:600;padding:6px 8px;border-radius:6px;color:var(--violet)}
 .link.danger{color:var(--err)}
 
-.cta{margin-top:28px;background:linear-gradient(135deg,var(--violet),#4f8fd6);color:white;border-radius:14px;padding:26px 20px;text-align:center}
+.cta{margin-top:28px;background:linear-gradient(135deg,var(--mt),#4f8fd6);color:white;border-radius:14px;padding:26px 20px;text-align:center}
 .cta p{margin:6px auto 16px;max-width:30em}
-.cta a{display:inline-block;background:white;color:var(--violet);font-weight:700;padding:12px 26px;border-radius:999px;text-decoration:none}
+.cta a{display:inline-block;background:white;color:var(--mt);font-weight:700;padding:12px 26px;border-radius:999px;text-decoration:none}
 .cta a:focus-visible{outline-color:white}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:8px 16px calc(24px + env(safe-area-inset-bottom,0px))}
-footer a{color:var(--violet);text-decoration:none}
+footer a{color:var(--mt);text-decoration:none}
 </style>
 </head>
 <body>
@@ -135,6 +174,7 @@ const T = {
     title: "Online booking demo",
     intro: "One booking system, set up for any small business. Try it as a restaurant, a gym or a salon.",
     demo: "Demo with fictional businesses. No real booking is made.",
+    kick_resto: "Bistro · Table reservations", kick_gym: "Fitness studio · Class booking", kick_salon: "Hair salon · Appointments",
     bizLabel: "Business type", resto: "Restaurant", gym: "Gym", salon: "Salon",
     s1resto: "Your table", s1gym: "Choose a class", s1salon: "Choose a service",
     party: "Party size", people: n => n === 1 ? "1 person" : `${n} people`,
@@ -165,6 +205,7 @@ const T = {
     title: "Démo de réservation en ligne",
     intro: "Un seul système de réservation, adapté à toute petite entreprise. Essayez-le en mode restaurant, gym ou salon.",
     demo: "Démo avec des entreprises fictives. Aucune réservation réelle n’est faite.",
+    kick_resto: "Bistro · Réservation de table", kick_gym: "Studio de conditionnement · Réservation de cours", kick_salon: "Salon de coiffure · Rendez-vous",
     bizLabel: "Type d’entreprise", resto: "Restaurant", gym: "Gym", salon: "Salon",
     s1resto: "Votre table", s1gym: "Choisissez un cours", s1salon: "Choisissez un service",
     party: "Nombre de personnes", people: n => n === 1 ? "1 personne" : `${n} personnes`,
@@ -454,6 +495,7 @@ function renderMine() {
 function render() {
   const L = state.lang, b = BIZ[state.biz];
   document.documentElement.lang = L;
+  document.body.dataset.theme = state.biz;
   document.title = `${t("title")} | MT Web Designs`;
   let flow;
   const bk = state.confirmed && state.bookings.find(x => x.id === state.confirmed);
@@ -476,7 +518,7 @@ function render() {
       ${["resto", "gym", "salon"].map(k => `<button data-act="biz" data-val="${k}" aria-pressed="${state.biz === k}">${t(k)}</button>`).join("")}
     </div>
     <section class="card" id="bookingCard" aria-labelledby="bizName">
-      <div class="biz-head"><h2 id="bizName">${b.name}</h2><p>${b.tag[L]}, ${b.area}</p></div>
+      <div class="biz-head"><span class="kicker">${t("kick_" + state.biz)}</span><h2 id="bizName">${b.name}</h2><p>${b.tag[L]}, ${b.area}</p></div>
       ${flow}
     </section>
     ${renderMine()}
