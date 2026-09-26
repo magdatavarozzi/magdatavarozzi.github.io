@@ -238,3 +238,11 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   .hero h2{ font-size:1.2rem; }
   nav ul{ flex-wrap:wrap; }
 }
+.project-cta{
+  display:block;
+  margin-top:12px;
+  font-size:0.9rem;
+  color:var(--violet);
+  text-decoration:none;
+}
+.project-cta:hover{ text-decoration:underline; }
