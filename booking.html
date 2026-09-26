@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Booking demo | MT Web Designs</title>
-<meta name="description" content="Try a bilingual online booking system for restaurants, gyms and salons, built by MT Web Designs in Montréal." />
+<meta name="description" content="Try a bilingual online booking system for restaurants, studios and salons, built by MT Web Designs in Montréal." />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,21 +22,25 @@
   --btn-case:none; --btn-track:normal;
   --r:10px; --r-lg:14px; --r-pill:999px;
 }
-/* Bistro: modern, fresh and inviting (vivid leaf green, lime, mint), bold modern sans */
+body{--on-accent:white;--on-accent-soft:rgba(255,255,255,.9);--accent-text:var(--violet)}
+/* Bistro: lemon yellow and charcoal with a fresh basil accent ("lemon & herbs"), bold modern sans */
 body[data-theme="resto"]{
-  --violet:#17804a; --violet-dark:#116639; --soft:#ecf8f0; --line:#d3ecdc; --bg:#f6fbf7;
-  --intro-a:#0f6b3c; --intro-b:#2fb573;
+  --violet:#f6cf3d; --violet-dark:#ecc01f; --soft:#fff8da; --line:#efe3ad; --bg:#fffdf5;
+  --on-accent:#1f2326; --on-accent-soft:rgba(31,35,38,.75); --accent-text:#2e7d3b;
+  --intro-a:#f6cf3d; --intro-b:#fbe8a0;
   --head-font:'Manrope',system-ui,sans-serif; --head-track:-.01em;
-  --head-bg:linear-gradient(135deg,#0f6b3c,#23a063); --head-text:#effbf3; --head-accent:#d9f99d;
+  --head-bg:#22262a; --head-text:#f3f0e6; --head-accent:#f6cf3d;
   --r:12px; --r-lg:18px; --r-pill:999px;
+  --accent2:#2e7d3b;
 }
+body[data-theme="resto"] .intro{color:#1f2326;text-shadow:none}
+body[data-theme="resto"] .demo-note{background:rgba(31,35,38,.08)}
 body[data-theme="resto"] .biz-head h2,body[data-theme="resto"] .intro h1{font-weight:800}
 body[data-theme="resto"] .biz-head h2{color:#fff}
-body[data-theme="resto"]{--accent2:#c0392b}
 body[data-theme="resto"] .biz-head{border-bottom:4px solid var(--accent2)}
-body[data-theme="resto"] .step.done .num{background:var(--accent2)}
-body[data-theme="resto"] .code{color:var(--accent2);background:#fdecea}
-body[data-theme="resto"] .confirm .ck-bg{fill:#fdecea}
+body[data-theme="resto"] .step.done .num{background:var(--accent2);color:#fff}
+body[data-theme="resto"] .code{color:var(--accent2);background:#e9f5ea}
+body[data-theme="resto"] .confirm .ck-bg{fill:#e9f5ea}
 /* Studio: calm zen teal, airy sans, soft rounded shapes */
 body[data-theme="gym"]{
   --violet:#1f6f6b; --violet-dark:#175754; --soft:#e6f3f1; --line:#d4e7e3; --bg:#f2f7f6;
@@ -64,7 +68,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 body{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+:focus-visible{outline:3px solid var(--accent-text);outline-offset:2px}
 
 .top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
   padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:white;box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -83,7 +87,7 @@ button{cursor:pointer}
 .wrap{max-width:720px;margin:-34px auto 0;padding:0 14px 32px}
 .switch{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:white;border-radius:var(--r-lg);padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
 .switch button{border:none;background:transparent;padding:10px 4px;border-radius:var(--r);font-weight:600;color:var(--muted)}
-.switch button[aria-pressed="true"]{background:var(--violet);color:white}
+.switch button[aria-pressed="true"]{background:var(--violet);color:var(--on-accent)}
 
 .card{background:white;border-radius:var(--r-lg);box-shadow:0 4px 14px rgba(0,0,0,.06);margin-top:14px;overflow:hidden}
 .biz-head{padding:20px;border-bottom:1px solid var(--line);background:var(--head-bg);color:var(--head-text)}
@@ -93,17 +97,17 @@ button{cursor:pointer}
 .step{padding:18px 20px;border-bottom:1px solid var(--line)}
 .step:last-child{border-bottom:none}
 .step h3{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);display:flex;align-items:center;gap:10px;font-size:1rem;margin-bottom:12px}
-.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--violet);font-size:.85rem;font-weight:700;flex:none}
-.step.done .num{background:var(--violet);color:white}
+.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--accent-text);font-size:.85rem;font-weight:700;flex:none}
+.step.done .num{background:var(--violet);color:var(--on-accent)}
 .hint{color:var(--muted);font-size:.85rem;margin-top:10px}
 
 .stepper{display:flex;align-items:center;gap:14px}
-.stepper button{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:white;font-size:1.3rem;line-height:1;color:var(--violet)}
+.stepper button{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:white;font-size:1.3rem;line-height:1;color:var(--accent-text)}
 .stepper button:disabled{opacity:.35;cursor:not-allowed}
 .stepper output{min-width:7.5em;text-align:center;font-weight:600}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .pill{padding:8px 18px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:white;font-weight:500}
-.pill[aria-pressed="true"]{border-color:var(--violet);background:var(--violet);color:white}
+.pill[aria-pressed="true"]{border-color:var(--violet);background:var(--violet);color:var(--on-accent)}
 
 .opt-list{display:grid;gap:8px}
 .opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r);background:white;font-weight:500}
@@ -114,30 +118,30 @@ button{cursor:pointer}
 .day{flex:0 0 70px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:var(--r);border:1.5px solid var(--line);background:white;line-height:1.25}
 .day .dow,.day .mon{font-size:.76rem;color:var(--muted)}
 .day .dnum{font-size:1.25rem;font-weight:700}
-.day[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
-.day[aria-pressed="true"] .dow,.day[aria-pressed="true"] .mon{color:rgba(255,255,255,.9)}
+.day[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:var(--on-accent)}
+.day[aria-pressed="true"] .dow,.day[aria-pressed="true"] .mon{color:var(--on-accent-soft)}
 .day:disabled{background:#f4f4f7;color:#a9a7b5;cursor:not-allowed}
 .day:disabled .dow,.day:disabled .mon{color:#a9a7b5}
 
 .times{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
 .time{display:flex;flex-direction:column;align-items:center;padding:10px 6px;border-radius:var(--r);border:1.5px solid var(--line);background:white;font-weight:600;line-height:1.3}
 .time small{font-weight:400;font-size:.74rem;color:var(--muted)}
-.time[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:white}
-.time[aria-pressed="true"] small{color:rgba(255,255,255,.9)}
+.time[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:var(--on-accent)}
+.time[aria-pressed="true"] small{color:var(--on-accent-soft)}
 .time:disabled{background:#f4f4f7;color:#a9a7b5;cursor:not-allowed}
 .time:disabled small{color:#a9a7b5}
 
 .summary{background:var(--soft);border-radius:var(--r);padding:12px 14px;margin-bottom:16px;font-size:.92rem}
-.summary strong{color:var(--violet)}
+.summary strong{color:var(--accent-text)}
 .field{display:grid;gap:4px;margin-bottom:12px}
 .field label{font-size:.9rem;font-weight:500}
 .field input,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:var(--r);background:white;font-size:1rem}
 .field input[aria-invalid="true"]{border-color:var(--err)}
 .err{color:var(--err);font-size:.82rem}
-.primary{text-transform:var(--btn-case);letter-spacing:var(--btn-track);padding:13px 20px;border-radius:var(--r);border:none;background:var(--violet);color:white;font-weight:700;font-size:1rem}
+.primary{text-transform:var(--btn-case);letter-spacing:var(--btn-track);padding:13px 20px;border-radius:var(--r);border:none;background:var(--violet);color:var(--on-accent);font-weight:700;font-size:1rem}
 .primary:hover{background:var(--violet-dark)}
 .full{width:100%}
-.secondary{padding:12px 18px;border-radius:var(--r);border:1.5px solid var(--violet);background:white;color:var(--violet);font-weight:600}
+.secondary{padding:12px 18px;border-radius:var(--r);border:1.5px solid var(--accent-text);background:white;color:var(--accent-text);font-weight:600}
 
 .confirm{padding:28px 20px;text-align:center}
 .confirm:focus{outline:none}
@@ -145,7 +149,7 @@ button{cursor:pointer}
 .confirm .ck-bg{fill:var(--soft)}
 .confirm .ck{stroke:var(--accent2,var(--violet))}
 .confirm h3{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);font-size:1.3rem;margin:10px 0 6px}
-.code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--soft);color:var(--violet);padding:6px 14px;border-radius:8px;margin-top:4px}
+.code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--soft);color:var(--accent-text);padding:6px 14px;border-radius:8px;margin-top:4px}
 .details{list-style:none;text-align:left;max-width:380px;margin:18px auto 8px;display:grid;gap:8px}
 .details li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:8px}
 .details li span:first-child{color:var(--muted)}
@@ -158,7 +162,7 @@ button{cursor:pointer}
 .bk{display:flex;justify-content:space-between;align-items:center;gap:10px;background:white;border-radius:var(--r);padding:12px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-top:8px}
 .bk span{display:block;color:var(--muted);font-size:.88rem}
 .bk-actions{display:flex;gap:2px;flex:none}
-.link{background:none;border:none;font-weight:600;padding:6px 8px;border-radius:6px;color:var(--violet)}
+.link{background:none;border:none;font-weight:600;padding:6px 8px;border-radius:6px;color:var(--accent-text)}
 .link.danger{color:var(--err)}
 
 .cta{margin-top:28px;background:linear-gradient(135deg,var(--mt),#4f8fd6);color:white;border-radius:14px;padding:26px 20px;text-align:center}
@@ -179,11 +183,11 @@ const STORE = "mtwd-booking-demo-v1";
 const T = {
   en: {
     title: "Online booking demo",
-    intro: "One booking system, set up for any small business. Try it as a restaurant, a gym or a salon.",
+    intro: "One booking system, set up for any small business. Try it as a restaurant, a studio or a salon.",
     demo: "Demo with fictional businesses. No real booking is made.",
     backHome: "Back to MT Web Designs",
     kick_resto: "Bistro · Table reservations", kick_gym: "Wellness studio · Class booking", kick_salon: "Hair salon · Appointments",
-    bizLabel: "Business type", resto: "Restaurant", gym: "Gym", salon: "Salon",
+    bizLabel: "Business type", resto: "Restaurant", gym: "Studio", salon: "Salon",
     s1resto: "Your table", s1gym: "Choose a class", s1salon: "Choose a service",
     party: "Party size", people: n => n === 1 ? "1 person" : `${n} people`,
     fewer: "Fewer people", more: "More people",
@@ -206,16 +210,16 @@ const T = {
     mine: "Your bookings", none: "Bookings you make will appear here.",
     cancel: "Cancel", cancelled: "Booking cancelled.",
     ctaT: "Want online booking for your business?",
-    ctaP: "MT Web Designs sets this up for restaurants, gyms, salons and other small businesses, in French and English.",
+    ctaP: "MT Web Designs sets this up for restaurants, studios, salons and other small businesses, in French and English.",
     ctaB: "Get a free quote"
   },
   fr: {
     title: "Démo de réservation en ligne",
-    intro: "Un seul système de réservation, adapté à toute petite entreprise. Essayez-le en mode restaurant, gym ou salon.",
+    intro: "Un seul système de réservation, adapté à toute petite entreprise. Essayez-le en mode restaurant, studio ou salon.",
     demo: "Démo avec des entreprises fictives. Aucune réservation réelle n’est faite.",
     backHome: "Retour à MT Web Designs",
     kick_resto: "Bistro · Réservation de table", kick_gym: "Studio bien-être · Réservation de cours", kick_salon: "Salon de coiffure · Rendez-vous",
-    bizLabel: "Type d’entreprise", resto: "Restaurant", gym: "Gym", salon: "Salon",
+    bizLabel: "Type d’entreprise", resto: "Restaurant", gym: "Studio", salon: "Salon",
     s1resto: "Votre table", s1gym: "Choisissez un cours", s1salon: "Choisissez un service",
     party: "Nombre de personnes", people: n => n === 1 ? "1 personne" : `${n} personnes`,
     fewer: "Moins de personnes", more: "Plus de personnes",
@@ -238,7 +242,7 @@ const T = {
     mine: "Vos réservations", none: "Vos réservations apparaîtront ici.",
     cancel: "Annuler", cancelled: "Réservation annulée.",
     ctaT: "Vous voulez la réservation en ligne pour votre entreprise?",
-    ctaP: "MT Web Designs l’installe pour les restaurants, gyms, salons et autres petites entreprises, en français et en anglais.",
+    ctaP: "MT Web Designs l’installe pour les restaurants, studios, salons et autres petites entreprises, en français et en anglais.",
     ctaB: "Obtenir un devis gratuit"
   }
 };
