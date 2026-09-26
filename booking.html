@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;700&family=Oswald:wght@500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Jost:wght@400;500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --violet:#7a5cf0; --violet-dark:#5b3fd6; --light-blue:#a8d8ff;
@@ -22,25 +22,30 @@
   --btn-case:none; --btn-track:normal;
   --r:10px; --r-lg:14px; --r-pill:999px;
 }
-/* Bistro: deep green, cream and brass, classic serif */
+/* Bistro: modern, fresh and inviting (vivid leaf green, lime, mint), bold modern sans */
 body[data-theme="resto"]{
-  --violet:#2f5d50; --violet-dark:#234a3f; --soft:#edf3ef; --line:#dde6e0; --bg:#faf6ee;
-  --intro-a:#1c3a31; --intro-b:#4a8472;
-  --head-font:'Fraunces',Georgia,serif;
-  --head-bg:#1c3a31; --head-text:#f4ecdb; --head-accent:#e2c07d;
-  --r:6px; --r-lg:8px; --r-pill:6px;
+  --violet:#17804a; --violet-dark:#116639; --soft:#ecf8f0; --line:#d3ecdc; --bg:#f6fbf7;
+  --intro-a:#0f6b3c; --intro-b:#2fb573;
+  --head-font:'Manrope',system-ui,sans-serif; --head-track:-.01em;
+  --head-bg:linear-gradient(135deg,#0f6b3c,#23a063); --head-text:#effbf3; --head-accent:#d9f99d;
+  --r:12px; --r-lg:18px; --r-pill:999px;
 }
-/* Gym: black and volt, condensed uppercase, sharp corners */
+body[data-theme="resto"] .biz-head h2,body[data-theme="resto"] .intro h1{font-weight:800}
+body[data-theme="resto"] .biz-head h2{color:#fff}
+body[data-theme="resto"]{--accent2:#c0392b}
+body[data-theme="resto"] .biz-head{border-bottom:4px solid var(--accent2)}
+body[data-theme="resto"] .step.done .num{background:var(--accent2)}
+body[data-theme="resto"] .code{color:var(--accent2);background:#fdecea}
+body[data-theme="resto"] .confirm .ck-bg{fill:#fdecea}
+/* Studio: calm zen teal, airy sans, soft rounded shapes */
 body[data-theme="gym"]{
-  --violet:#141414; --violet-dark:#000; --soft:#f3fadf; --line:#e1e1e1; --bg:#f2f2f2;
-  --intro-a:#0d0d0d; --intro-b:#3a3a3a;
-  --head-font:'Oswald','Arial Narrow',Arial,sans-serif; --head-case:uppercase; --head-track:.04em;
-  --head-bg:#0d0d0d; --head-text:#f2f2f2; --head-accent:#c8f542;
-  --btn-case:uppercase; --btn-track:.06em;
-  --r:3px; --r-lg:4px; --r-pill:3px;
+  --violet:#1f6f6b; --violet-dark:#175754; --soft:#e6f3f1; --line:#d4e7e3; --bg:#f2f7f6;
+  --intro-a:#1f6f6b; --intro-b:#6fb5ab;
+  --head-font:'Jost',system-ui,sans-serif; --head-track:.02em;
+  --head-bg:#e3f1ee; --head-text:#1d4e4b; --head-accent:#1f6f6b;
+  --r:12px; --r-lg:18px; --r-pill:999px;
 }
-body[data-theme="gym"] .step.done .num{background:#c8f542;color:#0d0d0d}
-body[data-theme="gym"] .intro h1{color:#c8f542}
+body[data-theme="gym"] .biz-head h2,body[data-theme="gym"] .intro h1{font-weight:500}
 /* Salon: blush and plum, elegant serif, soft rounded shapes */
 body[data-theme="salon"]{
   --violet:#853a5c; --violet-dark:#6b2c49; --soft:#fbeef2; --line:#f0dde4; --bg:#fdf7f5;
@@ -137,6 +142,8 @@ button{cursor:pointer}
 .confirm{padding:28px 20px;text-align:center}
 .confirm:focus{outline:none}
 .confirm svg{width:56px;height:56px}
+.confirm .ck-bg{fill:var(--soft)}
+.confirm .ck{stroke:var(--accent2,var(--violet))}
 .confirm h3{font-family:var(--head-font);text-transform:var(--head-case);letter-spacing:var(--head-track);font-size:1.3rem;margin:10px 0 6px}
 .code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--soft);color:var(--violet);padding:6px 14px;border-radius:8px;margin-top:4px}
 .details{list-style:none;text-align:left;max-width:380px;margin:18px auto 8px;display:grid;gap:8px}
@@ -174,7 +181,8 @@ const T = {
     title: "Online booking demo",
     intro: "One booking system, set up for any small business. Try it as a restaurant, a gym or a salon.",
     demo: "Demo with fictional businesses. No real booking is made.",
-    kick_resto: "Bistro · Table reservations", kick_gym: "Fitness studio · Class booking", kick_salon: "Hair salon · Appointments",
+    backHome: "Back to MT Web Designs",
+    kick_resto: "Bistro · Table reservations", kick_gym: "Wellness studio · Class booking", kick_salon: "Hair salon · Appointments",
     bizLabel: "Business type", resto: "Restaurant", gym: "Gym", salon: "Salon",
     s1resto: "Your table", s1gym: "Choose a class", s1salon: "Choose a service",
     party: "Party size", people: n => n === 1 ? "1 person" : `${n} people`,
@@ -205,7 +213,8 @@ const T = {
     title: "Démo de réservation en ligne",
     intro: "Un seul système de réservation, adapté à toute petite entreprise. Essayez-le en mode restaurant, gym ou salon.",
     demo: "Démo avec des entreprises fictives. Aucune réservation réelle n’est faite.",
-    kick_resto: "Bistro · Réservation de table", kick_gym: "Studio de conditionnement · Réservation de cours", kick_salon: "Salon de coiffure · Rendez-vous",
+    backHome: "Retour à MT Web Designs",
+    kick_resto: "Bistro · Réservation de table", kick_gym: "Studio bien-être · Réservation de cours", kick_salon: "Salon de coiffure · Rendez-vous",
     bizLabel: "Type d’entreprise", resto: "Restaurant", gym: "Gym", salon: "Salon",
     s1resto: "Votre table", s1gym: "Choisissez un cours", s1salon: "Choisissez un service",
     party: "Nombre de personnes", people: n => n === 1 ? "1 personne" : `${n} personnes`,
@@ -238,12 +247,12 @@ const T = {
 const BIZ = {
   resto: {
     kind: "resto", name: "Bistro Saint-Laurent", area: "Plateau-Mont-Royal",
-    tag: { en: "Seasonal Québec cooking", fr: "Cuisine québécoise de saison" },
+    tag: { en: "Fresh seasonal cooking", fr: "Cuisine fraîche de saison" },
     closed: [1], open: "17:00", last: "21:30", dur: 90
   },
   gym: {
     kind: "gym", name: "Studio Mile End", area: "Mile End",
-    tag: { en: "Small-group fitness classes", fr: "Cours en petits groupes" },
+    tag: { en: "Yoga, Pilates and mindful movement", fr: "Yoga, Pilates et mouvement en pleine conscience" },
     closed: [],
     classes: [
       { id: "yoga", name: { en: "Yoga flow", fr: "Yoga flow" }, dur: 60, cap: 16,
@@ -461,8 +470,8 @@ function renderDetails() {
 
 function renderConfirm(bk) {
   return `<div class="confirm" id="confirmBox" tabindex="-1">
-    <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#f1eefe"/>
-      <path d="M17 29l7 7 15-16" fill="none" stroke="#7a5cf0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 56 56" aria-hidden="true"><circle class="ck-bg" cx="28" cy="28" r="27"/>
+      <path class="ck" d="M17 29l7 7 15-16" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <h3>${t("done")}</h3>
     <div class="hint">${t("code")}</div>
     <div class="code">${bk.code}</div>
@@ -506,7 +515,7 @@ function render() {
   }
   document.getElementById("app").innerHTML = `
   <header class="top">
-    <a class="brand" href="./"><img src="logo.png" alt="" width="28" height="28" onerror="this.remove()" />MT Web Designs</a>
+    <a class="brand" href="./#portfolio" aria-label="${t("backHome")}"><span aria-hidden="true">←</span><img src="logo.png" alt="" width="28" height="28" onerror="this.remove()" />MT Web Designs</a>
     <div class="lang" role="group" aria-label="Language / Langue">
       <button data-act="lang" data-val="en" aria-pressed="${L === "en"}">EN</button>
       <button data-act="lang" data-val="fr" aria-pressed="${L === "fr"}">FR</button>

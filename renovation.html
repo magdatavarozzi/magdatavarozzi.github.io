@@ -17,7 +17,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+html{scroll-behavior:smooth;scroll-padding-top:calc(108px + env(safe-area-inset-top,0px))}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:'Source Sans 3',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:1.05rem;line-height:1.6;color:var(--ink);background:var(--paper)}
 h1,h2,h3{font-family:'Archivo','Arial Narrow',Arial,sans-serif;font-stretch:112%;line-height:1.1;letter-spacing:-0.01em}
@@ -28,11 +28,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 
 /* demo bar */
-.demo-bar{background:var(--ink);color:#e9e4dc;font-size:.85rem;text-align:center;padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px}
-.demo-bar a{color:#fff;font-weight:600}
+.demo-bar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#7a5cf0;color:#fff;font-size:.88rem;
+  height:calc(36px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 16px 0;white-space:nowrap}
+.demo-bar .back{color:#fff;font-weight:600;text-decoration:none;padding:6px 0}
+.demo-bar .back:hover span{text-decoration:underline}
+.demo-bar .back:focus-visible{outline-color:#fff}
+.demo-tag{font-size:.78rem;background:rgba(255,255,255,.2);padding:2px 10px;border-radius:999px}
 
 /* header */
-.site-head{position:sticky;top:0;z-index:20;background:rgba(247,243,237,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.site-head{position:sticky;top:calc(36px + env(safe-area-inset-top,0px));z-index:20;background:rgba(247,243,237,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .brand svg{width:34px;height:34px;flex:none}
@@ -145,8 +149,8 @@ footer a{color:#fff}
 <body>
 
 <div class="demo-bar">
-  <span data-en="Concept website for a fictional business, designed by" data-fr="Site concept pour une entreprise fictive, conçu par">Concept website for a fictional business, designed by</span>
-  <a href="./">MT Web Designs</a>
+  <a class="back" href="./#portfolio">← <span data-en="Back to MT Web Designs" data-fr="Retour à MT Web Designs">Back to MT Web Designs</span></a>
+  <span class="demo-tag" data-en="Concept site" data-fr="Site concept">Concept site</span>
 </div>
 
 <header class="site-head">
@@ -431,7 +435,7 @@ footer a{color:#fff}
       <a class="brand" href="#top" style="color:#fff"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#2d3238"/><path d="M9 21 20 11l11 10" fill="none" stroke="#e08a5c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 19v11h14V19" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg><span>Rénovations<br>Beaubien</span></a>
       <div>514 555-0142<br><span data-en="Rue Beaubien Est, Montréal" data-fr="Rue Beaubien Est, Montréal">Rue Beaubien Est, Montréal</span></div>
     </div>
-    <small><span data-en="Concept website. Rénovations Beaubien is a fictional business. Design and development by" data-fr="Site concept. Rénovations Beaubien est une entreprise fictive. Conception et développement par">Concept website. Rénovations Beaubien is a fictional business. Design and development by</span> <a href="./">MT Web Designs</a>.</small>
+    <small><span data-en="Concept website. Rénovations Beaubien is a fictional business. Design and development by" data-fr="Site concept. Rénovations Beaubien est une entreprise fictive. Conception et développement par">Concept website. Rénovations Beaubien is a fictional business. Design and development by</span> <a href="./#portfolio">MT Web Designs</a>.</small>
   </div>
 </footer>
 
