@@ -280,3 +280,10 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   text-decoration:none;
 }
 .project-cta:hover{ text-decoration:underline; }
+
+.privacy-note{
+  font-size:0.82rem;
+  color:#666;
+  margin-top:10px;
+}
+.privacy-note a{ color:var(--violet); }
