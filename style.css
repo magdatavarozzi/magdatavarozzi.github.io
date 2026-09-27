@@ -157,6 +157,40 @@ h2{
   text-decoration:none;
 }
 
+/* ABOUT */
+.about-card{
+  background:white;
+  max-width:720px;
+  margin:0 auto;
+  padding:2rem;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  text-align:center;
+}
+.about-lead{
+  font-weight:600;
+  color:var(--violet);
+  font-size:1.1rem;
+  margin-bottom:0.4rem;
+}
+.about-facts{
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin:1.4rem 0 0;
+  padding:0;
+}
+.about-facts li{
+  background:#f1eefe;
+  color:#4b3aa8;
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:0.9rem;
+  font-weight:500;
+}
+
 /* CONTACT */
 .contact{
   display:flex;
