@@ -406,6 +406,7 @@ function renderBag() {
     $("bagFoot").innerHTML = `<form class="co" id="coForm" novalidate>
       ${f("name", "text", "name")}${f("email", "email", "email")}${f("address", "text", "street-address", t("addrPh"))}
       <p class="demo">${t("noPay")}</p>
+      <div class="sum" style="font-weight:400"><span>${t("ship")}</span><span>${ship ? money(ship) : t("free")}</span></div>
       <div class="sum"><span>${t("total")}</span><span>${money(sub + ship)}</span></div>
       <button class="btn" type="submit" style="width:100%;margin-top:8px">${t("place")}</button>
       <button class="linkbtn" type="button" id="backBag">${t("back")}</button></form>`;
