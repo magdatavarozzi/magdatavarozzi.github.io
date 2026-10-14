@@ -336,3 +336,6 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   nav a{ padding:12px 7px; font-size:0.85rem; }
   footer{ padding-bottom:90px; }
 }
+
+/* ABOUT LINK */
+.about-lead a{ color:inherit; text-decoration:underline; }
