@@ -329,3 +329,10 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   border-radius:8px;
   margin-bottom:14px;
 }
+
+/* PHONE: one-line menu, footer clear of Messenger button */
+@media(max-width:600px){
+  nav ul{ flex-wrap:nowrap; }
+  nav a{ padding:12px 7px; font-size:0.85rem; }
+  footer{ padding-bottom:90px; }
+}
