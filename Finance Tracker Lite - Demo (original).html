@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Finance Tracker Lite - Demo (original)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+/* Variables from the original style.css */
+:root{
+  --violet: #7a5cf0;
+  --light-blue: #a8d8ff;
+  --bg: #fafafa;
+  --text: #333;
+  --income: #1fa31f;
+  --expense: #d42828;
+}
+body{font-family:'Poppins',Arial,sans-serif;background:#fafafa;color:#333;margin:0;padding:24px;}
+.wrap{max-width:640px;margin:0 auto;text-align:center;}
+h3{color:var(--violet);margin:0 0 6px;}
+/* Original tracker styles (unchanged) */
+/* TRACKER APP */
+.tracker-app{
+  margin-top:12px;
+  padding:14px;
+  background:#eef3ff;
+  border-radius:10px;
+}
+.tracker-display{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin-bottom:12px;
+}
+#balance{
+  font-size:1.2rem;
+}
+
+/* FORM */
+#trackerForm{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  align-items:center;
+}
+#trackerForm input,#trackerForm select{
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #d7dbe8;
+  font-size:0.95rem;
+}
+#trackerForm button{
+  padding:8px 12px;
+  border-radius:6px;
+  border:none;
+  background:var(--violet);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* LIST */
+#transactions{
+  list-style:none;
+  margin-top:10px;
+  padding:0;
+}
+#transactions li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 10px;
+  background:white;
+  border-radius:6px;
+  margin-top:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* FULL-LINE COLOR */
+li.income-item{ color:var(--income); }
+li.expense-item{ color:var(--expense); }
+
+.tx-left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.tx-delete{
+  background:transparent;
+  border:none;
+  color:#999;
+  font-size:18px;
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:4px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <h3 data-en="Finance Tracker Lite - Demo" data-fr="Finance Tracker Lite - Démo">
+        Finance Tracker Lite - Demo
+    </h3>
+
+    <p data-en="Balance Income & Expenses Live" data-fr="Équilibrer Revenus & Dépenses en Direct">
+        Balance Income & Expenses Live
+    </p>
+
+    <div class="tracker-app">
+        <div class="tracker-display">
+            <strong data-en="Current Balance" data-fr="Solde actuel">Current Balance</strong>
+            <div id="balance">$0.00</div>
+        </div>
+
+        <form id="trackerForm">
+            <input id="desc" name="desc" autocomplete="on"
+                   data-en-placeholder="Description" data-fr-placeholder="Description"
+                   placeholder="Description" required />
+
+            <input id="amount" name="amount" type="number" step="0.01"
+                   data-en-placeholder="Amount" data-fr-placeholder="Montant"
+                   placeholder="Amount" required />
+
+            <select id="type" name="type">
+                <option value="income" data-en="Income" data-fr="Revenu">Income</option>
+                <option value="expense" data-en="Expense" data-fr="Dépense">Expense</option>
+            </select>
+
+            <button type="submit" data-en="Add" data-fr="Ajouter">Add</button>
+        </form>
+
+        <ul id="transactions" aria-live="polite"></ul>
+    </div>
+</div>
+<script>
+/* Original tracker script (unchanged) */
+// FINANCE TRACKER — decimals + green/red full-line
+const trackerForm = document.getElementById("trackerForm");
+const transactionsList = document.getElementById("transactions");
+const balanceDisplay = document.getElementById("balance");
+
+let balance = 0;
+
+function fmt(value) {
+    return `$${value.toFixed(2)}`;
+}
+
+if (trackerForm) {
+    trackerForm.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const desc = document.getElementById("desc").value.trim();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const type = document.getElementById("type").value;
+
+        if (!desc || isNaN(amount)) return;
+
+        const li = document.createElement("li");
+
+        if (type === "income") li.classList.add("income-item");
+        else li.classList.add("expense-item");
+
+        li.innerHTML = `
+            <div class="tx-left">
+                <span class="tx-desc">${desc}</span>
+                <span class="tx-amount">${fmt(amount)}</span>
+            </div>
+            <button class="tx-delete">×</button>
+        `;
+
+        li.dataset.amount = amount;
+        li.dataset.type = type;
+
+        transactionsList.appendChild(li);
+
+        balance += type === "income" ? amount : -amount;
+        balanceDisplay.textContent = fmt(balance);
+
+        trackerForm.reset();
+        document.getElementById("type").value = "income";
+    });
+
+    transactionsList.addEventListener("click", e => {
+        if (!e.target.classList.contains("tx-delete")) return;
+
+        const li = e.target.closest("li");
+        const amount = parseFloat(li.dataset.amount);
+        const type = li.dataset.type;
+
+        balance += type === "income" ? -amount : amount;
+        balanceDisplay.textContent = fmt(balance);
+
+        li.remove();
+    });
+}
+</script>
+</body>
+</html>
