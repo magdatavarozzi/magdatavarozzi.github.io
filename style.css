@@ -349,5 +349,6 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   right:0;
   bottom:0;
   height:2px;
-  background:linear-gradient(90deg,#d6ecff,#ffffff 50%,#d6ecff);
+  background:linear-gradient(90deg,var(--light-blue),#ffffff 50%,var(--light-blue));
+  box-shadow:0 0 8px 1px rgba(168,216,255,0.9);
 }
