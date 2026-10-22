@@ -1,6 +1,5 @@
 :root{
   --violet: #7a5cf0;
-  --light-blue: #a8d8ff;
   --bg: #fafafa;
   --text: #333;
   --income: #1fa31f;
@@ -45,7 +44,7 @@ body{
 
 /* HEADER */
 header{
-  background:linear-gradient(135deg,var(--violet),#4b3aa8);
+  background:linear-gradient(135deg, #7a5cf0, #6a4ede 55%, #5b43b8);
   color:white;
   text-align:center;
   padding:28px 18px;
@@ -88,7 +87,7 @@ nav a{
 .hero{
   padding:64px 20px;
   text-align:center;
-  background:linear-gradient(135deg,var(--violet),#4b3aa8);
+  background:linear-gradient(135deg, #7a5cf0, #6a4ede 55%, #5b43b8);
   color:white;
   text-shadow:0 1px 3px rgba(0,0,0,0.25);
 }
