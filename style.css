@@ -352,3 +352,47 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
   background:linear-gradient(90deg,var(--light-blue),#ffffff 50%,var(--light-blue));
   box-shadow:0 0 8px 1px rgba(168,216,255,0.9);
 }
+
+/* DIAMOND SHINE (logo) */
+.logo-wrap{
+  position:relative;
+  display:inline-block;
+  line-height:0;
+  border-radius:50%;
+  overflow:hidden;
+}
+.logo-wrap::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(168,216,255,0.55) 44%,rgba(255,255,255,0.9) 50%,rgba(168,216,255,0.55) 56%,transparent 70%);
+  transform:translateX(-120%);
+  animation:diamond-shine 1.2s ease-in-out 0.6s 1 both;
+  pointer-events:none;
+}
+.logo-wrap::before{
+  content:"\2726";
+  position:absolute;
+  top:5px;
+  right:9px;
+  z-index:1;
+  font-size:12px;
+  line-height:1;
+  color:var(--violet);
+  opacity:0;
+  animation:diamond-sparkle 0.9s ease-out 1.5s 1 both;
+  pointer-events:none;
+}
+@keyframes diamond-sparkle{ 0%{opacity:0;transform:scale(.3);} 40%{opacity:1;transform:scale(1.15);} 100%{opacity:0;transform:scale(.6);} }
+.brand:hover .logo-wrap::before,
+.brand:active .logo-wrap::before{ animation:diamond-sparkle-again 0.9s ease-out 0.9s 1 both; }
+@keyframes diamond-sparkle-again{ 0%{opacity:0;transform:scale(.3);} 40%{opacity:1;transform:scale(1.15);} 100%{opacity:0;transform:scale(.6);} }
+.brand:hover .logo-wrap::after,
+.brand:active .logo-wrap::after{
+  animation:diamond-shine-again 1.2s ease-in-out 1 both;
+}
+@keyframes diamond-shine{ from{ transform:translateX(-120%); } to{ transform:translateX(120%); } }
+@keyframes diamond-shine-again{ from{ transform:translateX(-120%); } to{ transform:translateX(120%); } }
+@media (prefers-reduced-motion:reduce){
+  .logo-wrap::after, .logo-wrap::before{ animation:none; display:none; }
+}
