@@ -86,6 +86,7 @@ nav a{
 
 /* HERO */
 .hero{
+  position:relative;
   padding:64px 20px;
   text-align:center;
   background:linear-gradient(135deg,var(--light-blue),var(--violet));
@@ -188,7 +189,6 @@ h2{
   padding:6px 14px;
   border-radius:999px;
   font-size:0.9rem;
-  font-weight:500;
 }
 
 /* CONTACT */
@@ -341,7 +341,6 @@ a:focus-visible, button:focus-visible{ outline:3px solid var(--violet); outline-
 .about-lead a{ color:inherit; text-decoration:underline; }
 
 /* CRYSTAL-ICE HAIRLINE (under the hero) */
-.hero{ position:relative; }
 .hero::after{
   content:"";
   position:absolute;
